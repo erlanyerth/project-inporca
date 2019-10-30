@@ -11,20 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('monitoreo', function () {
-    
-})->name('monitoreo');
+
+Route::get('monitoreo', 'Pagecontroller@monitoreo')->name('monitoreo');
 Route::get('/', 'Pagecontroller@inicio');
 Route::get('RegistrarUser', 'Pagecontroller@reguser');
 Route::get('servicio', 'Pagecontroller@regservi')->name('servicio');
 Route::get('incidencia', 'Pagecontroller@regincidente')->name('incidencia');
 Route::get('seguimientoIncidencia', 'Pagecontroller@seguimiento' )->name('seguimientoinc');
 Route::get('categoria', 'Pagecontroller@categoria' )->name('categoria');
+Route::get('area', 'Pagecontroller@area' )->name('area');
 
-Auth::routes();
+Route::post('/', 'Pagecontroller@crearcategoria')->name('servicio.crearcateg');
+Route::post('crearserv', 'Pagecontroller@crearservicio')->name('servicio.crearservicio');
+Route::post('creararea', 'Pagecontroller@creararea')->name('servicio.creararea');
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
