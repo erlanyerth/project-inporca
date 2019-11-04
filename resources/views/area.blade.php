@@ -16,7 +16,7 @@
                                       </div>
 
                                   @endif
-                                  <form action="{{ route('servicio.creararea') }}" method="POST">
+                                  <form action="/area" method="POST">
                                     @csrf 
 
                                     @foreach ($errors->get('nombre') as $error)
@@ -28,9 +28,9 @@
                                   <hr class="mb-4">
                                       <div class="mb-3">
                                         
-                                        <label >Código del Área:</label>
+                                        <label name="id" value="{{ $codigo }}" >Código del Área:</label>
                                         
-                                        <input type="text" class="form-control"  name="id" value="{{ $codigo }}" placeholder="">
+                                        <input type="text" class="form-control" value="{{ $codigo }}"  placeholder="" disabled>
                                         
                                       </div>
                                       

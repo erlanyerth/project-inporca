@@ -16,35 +16,32 @@
                                       </div>
 
                                   @endif
-                                    <form action="{{ route('servicio.crearservicio') }}" method="POST" class="needs-validation" novalidate>
+                                    <form action="/servicio" method="POST" class="needs-validation" novalidate>
                                     @csrf
                                     @foreach ($errors->get('nombre') as $error)
 
-                                      <div class="alert alert-danger">
-                                        ¡El nombre es obligatorio!
-                                      </div>
+                                    <div class="alert alert-danger">
+                                    ¡El nombre es obligatorio!
+                                    </div>
                                     @endforeach
                                     @foreach ($errors->get('idcateg') as $error)
 
-                                      <div class="alert alert-danger">
-                                        ¡La categoría es obligatoria!
-                                      </div>
+                                    <div class="alert alert-danger">
+                                    ¡Seleccione una categoría!
+                                    </div>
                                     @endforeach
+
                                     @foreach ($errors->get('frecuencia') as $error)
 
-                                      <div class="alert alert-danger">
-                                        ¡La frecuencia es obligatoria!
-                                      </div>
-                                    @endforeach
-                                        <div class="mb-3">
+                                    <div class="alert alert-danger">
+                                    ¡Seleccione una frecuencia!
+                                    </div>
+                                     @endforeach                                   
+                                     <div class="mb-3">
                                             
-                                          <label for="firstName">Código del Servicio:</label>
+                                          <label name="id" value="{{ $codigo }}" for="firstName">Código del Servicio:</label>
                                           
-                                          <input type="text" class="form-control" id="firstName" name="id" value="{{ $codigo }}" placeholder=""  required>
-                                          <div class="invalid-feedback">
-                                            Valid first name is required.
-                                          </div>
-                                        
+                                          <input type="text" class="form-control" id="firstName"  value="{{ $codigo }}" placeholder="" disabled  required>
                                         </div>
                                         
                                        
@@ -54,14 +51,14 @@
                                      
                                       <option value="">Seleccione...</option>
                                       @foreach($categorias as $item) 
-                                        <option>{{$item->nombre}}</option>
+                                        <option>{{$item->nombre}}</option>  
                                       @endforeach()
                                       </select>
                                     </div>
                                       
                                           <div class="mb-3">
-                                                <label for="firstName">Nombre:</label>
-                                              <input type="text" class="form-control" name="nombre" id="firstName" placeholder="Escriba el nombre del servicio"  required>
+                                                <label for="firstName"  >Nombre:</label>
+                                              <input type="text" class="form-control" name="nombre" id="firstName" placeholder="Escriba el nombre del servicio"   required>
                                               <div class="invalid-feedback">
                                                 Este campo es requerido.
                                               </div>

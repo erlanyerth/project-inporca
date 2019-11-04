@@ -14,14 +14,16 @@ class CreateSeguimincidentsTable extends Migration
     public function up()
     {
         Schema::create('seguimincidents', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('id_incident');
-            $table->string('id_responsable');
-            $table->string('id_userlog');
+            $table->bigincrements('id');
+            $table->unsignedBigInteger('id_incident');
+            $table->foreign('id_incident')->references('id')->on('incidentes');
+            $table->unsignedBigInteger('id_responsable');
+            $table->foreign('id_responsable')->references('id')->on('users');
             $table->string('status');
-            $table->string('observacion');
-            $table->timestamp('fecha_seg');
-            $table->timestamp('fecha_reg');
+            $table->mediumText('observacion');
+            $table->timestamp('fecha_seg')->nullable();
+            $table->timestamps();
+            //$table->timestamp('fecha_reg')->nullable();
         });
     }
 

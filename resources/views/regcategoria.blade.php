@@ -16,7 +16,7 @@
                                       </div>
 
                                   @endif
-                                  <form action="{{ route('servicio.crearcateg') }}" method="POST">
+                                  <form  method="POST" action="/categoria">
                                     @csrf 
 
                                     @foreach ($errors->get('nombre') as $error)
@@ -28,9 +28,9 @@
                                   <hr class="mb-4">
                                       <div class="mb-3">
                                         <!-- <fieldset disabled>-->
-                                        <label for="firstName">Código de la categoría:</label>
+                                        <label for="firstName" name="id" value="{{ $codigo }}">Código de la categoría:</label>
                                         
-                                        <input type="text" class="form-control" id="firstName" name="id" value="{{ $codigo }}" placeholder="">
+                                        <input type="text" class="form-control" id="firstName"  value="{{ $codigo }}" placeholder="" disabled>
                                         
                                         <!--<fieldset disabled></fieldset>-->
                                       </div>

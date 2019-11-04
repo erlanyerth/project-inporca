@@ -10,6 +10,7 @@
                             <h4 class="mb-3 text-center text-danger">SEGUIMIENTO DE INCIDENCIA</h4>
                             <hr class="mb-2">
                             <form class="needs-validation" novalidate>
+                            @csrf
                             <div class="mb-4">
                             <h6 class="font-weight-bold">Fecha y hora del seguimiento</h6>
                             <input type="datetime-local" name="fechayhora">
@@ -18,7 +19,9 @@
                                     <label class="font-weight-bold" for="state">Servicio con problema registrado</label>
                                     <select class="form-control d-block w-100" id="state" required>
                                       <option value="">Seleccione...</option>
-                                      <option>Servidores</option>
+                                      @foreach($servicio as $item)
+                                      <option>{{$item->nombre}}</option>
+                                      @endforeach()
                                     </select>
                                   </div>
                                   <div class="mb-3">

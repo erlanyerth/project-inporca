@@ -6,44 +6,40 @@ use Illuminate\Http\Request;
 use App;
 class Pagecontroller extends Controller
 {
-    public  function inicio(){
-        return view('login');
-    }
-    public function reguser(){
-
-    }
-    public function regservi(){
-        $max = App\Servicio::all()->max('id');
+    function calcodigo($max, $valor) {
         if ( $max == 0){
-            $codigo = 6000;
+            $codigo = $valor;
         }
         else{
             $codigo = $max + 1;
         }
+        return $codigo;
+    }
+    public  function inicio(){
+        return view('auth.login');
+    }
+    public function reguser(){
+        return view('/auth.register');
+    }
+    public function regservi(){
+        $valor = 6000; 
+        $max = App\Servicio::all()->max('id');
+        $codigo = $this-> calcodigo($max, $valor);
+        
         $categorias = App\Categoria::all();
         return view('/regservicio', compact('categorias', 'codigo'));
     }
     public function categoria(){
-        
+        $valor = 5000;
         $max = App\Categoria::all()->max('id');
-        if ( $max == 0){
-            $codigo = 5000;
-        }
-        else{
-            $codigo = $max + 1;
-        }
+        $codigo = $this-> calcodigo($max, $valor);
         
         return view('/regcategoria', compact('codigo'));
     }
     public function area(){
-        
+        $valor = 2000;
         $max = App\Area::all()->max('id');
-        if ( $max == 0){
-            $codigo = 7000;
-        }
-        else{
-            $codigo = $max + 1;
-        }
+        $codigo = $this-> calcodigo($max, $valor);
         
         return view('/area', compact('codigo'));
     }

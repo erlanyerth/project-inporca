@@ -13,10 +13,17 @@ class CreateServiciosTable extends Migration
      */
     public function up()
     {
-        Schema::create('servicios', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('categorias', function (Blueprint $table) {
+            $table->bigincrements('id');
             $table->string('nombre');
-            $table->string('idcateg');
+            $table->string('status');
+            $table->timestamps();
+        });
+        Schema::create('servicios', function (Blueprint $table) {
+            $table->bigincrements('id');
+            $table->string('nombre');
+            $table->unsignedBigInteger('idcateg');
+            $table->foreign('idcateg')->references('id')->on('categorias');
             $table->string('statusact');
             $table->string('statuscomport');
             $table->string('frecuencia');
@@ -32,5 +39,6 @@ class CreateServiciosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('servicios');
+        Schema::dropIfExists('categorias');
     }
 }

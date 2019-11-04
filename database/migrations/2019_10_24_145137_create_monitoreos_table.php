@@ -14,13 +14,13 @@ class CreateMonitoreosTable extends Migration
     public function up()
     {
         Schema::create('monitoreos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('id_serv');
-            $table->string('id_responsable');
-            $table->string('id_userlog');
-            $table->string('observacion');
-            $table->timestamp('fecha_monit');
-            $table->timestamp('fecha_reg');
+            $table->bigincrements('id');
+            $table->unsignedBigInteger('id_serv');
+            $table->foreign('id_serv')->references('id')->on('servicios');
+            $table->unsignedBigInteger('id_responsable');
+            $table->foreign('id_responsable')->references('id')->on('users');
+            $table->dateTime('fecha_monit');
+            $table->dateTime('fecha_reg');
         });
     }
 

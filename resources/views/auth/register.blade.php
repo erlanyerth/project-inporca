@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-   <!-- <div class="row justify-content-center">
+    <!--<div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
@@ -24,7 +24,19 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="nameuser" class="col-md-4 col-form-label text-md-right">{{ __('Name User') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="nameuser" type="text" class="form-control{{ $errors->has('nameuser') ? ' is-invalid' : '' }}" name="nameuser" value="{{ old('nameuser') }}" required autofocus>
+
+                                @if ($errors->has('nameuser'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('nameuser') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -73,35 +85,43 @@
             </div>
         </div>
     </div>-->
-    <div class="card border-dark  mb-3 block w-50 mx-auto">
+    <section class="mt-3 pt-3  container-fluid">
+                    <div class="card border-dark  mb-3 block w-50 mx-auto">
                         <div class="card-body text-dark ">
                                 
                                     
-                                <form class="form-signin">
+                                <form method="POST" action="{{ route('register') }}">
+                                @csrf
                                     <div class="text-center mb-4">
                                       <h3 class="mb-3 text-center text-danger">REGISTRAR NUEVO USUARIO</h3>
                                     </div>
                                     <div class="form-label-group my-4">
-                                            <input type="text" class="form-control" id="firstName" placeholder="Nombre" value="" required>
-                                            <div class="invalid-feedback">
-                                              Valid first name is required.
-                                            </div>
+                                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Nombre">
+                                            @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                                           </div>
                                     <div class="form-label-group my-4">
-                                      <input  class="form-control" placeholder="Usuario" required autofocus>
+                                      <input  class="form-control{{ $errors->has('nameuser') ? ' is-invalid' : '' }}" name="nameuser" value="{{ old('nameuser') }}"  placeholder="Usuario" required autofocus>
+                                      @if ($errors->has('nameuser'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('nameuser') }}</strong>
+                                    </span>
+                                @endif
+                                    </div>
+                                    
+                                    <div class="form-label-group my-4">
+                                      <input type="password" id="inputPassword" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Ingrese contraseña">
+                                      @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                                     </div>
                                     <div class="form-label-group my-4">
-                                            <label for="state">Cargo</label>
-                                            <select class="form-control d-block w-100" id="state" required>
-                                              <option value="">Seleccione...</option>
-                                              <option>Servidores</option>
-                                            </select>
-                                          </div>
-                                    <div class="form-label-group my-4">
-                                      <input type="password" id="inputPassword" class="form-control" placeholder="Ingrese contraseña" required>
-                                    </div>
-                                    <div class="form-label-group my-4">
-                                            <input type="password" id="inputrepPassword" class="form-control" placeholder="Repetir contraseña" required>
+                                            <input type="password" id="inputrepPassword" class="form-control" placeholder="Repetir contraseña" name="password_confirmation" required>
                                           </div>
                                     <hr class="mb-4">
                                     
@@ -112,5 +132,7 @@
                             
                         </div>
                     </div>
-</div>
+                </section>
+                            
+                       
 @endsection
