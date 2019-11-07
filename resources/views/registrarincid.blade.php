@@ -1,5 +1,17 @@
 @extends('plantilla-base')
-
+<script type="text/javascript">
+	function marcar(source) 
+	{
+		checkboxes=document.getElementsByTagName('input'); //obtenemos todos los controles del tipo Input
+		for(i=0;i<checkboxes.length;i++) //recoremos todos los controles
+		{
+			if(checkboxes[i].type == "checkbox") //solo si es un checkbox entramos
+			{
+				checkboxes[i].checked=source.checked; //si es un checkbox le damos el valor del checkbox que lo llamó (Marcar/Desmarcar Todos)
+			}
+		}
+	}
+</script>
 @section('content')
 <div class="container"> 
 <section class="mt-2 pt-3 container-fluid">
@@ -32,39 +44,16 @@
                             <input type="datetime-local" name="fechareporte">
                          </div>
                          <div class="row">
-                          <div class="col-md-6 mb-3">
-                          
-                             <h6 class="font-weight-bold">Categoría del servicio </h6>
-                             @foreach($categorias as $item) 
-                 <div class="custom-control custom-radio">
-                   <input id="{{$item->id}}" name="categoria{{$item->id}}" type="radio" class="custom-control-input" checked required>
-                   <label class="custom-control-label" for="{{$item->id}}">{{$item->nombre}}</label>
-                 </div>
-                 @endforeach()
-                         </div>
-     
-                             
-                                 <div class="col-md-6 mb-3"> 
-                                 <h6 class="font-weight-bold">Áreas afectadas</h6>
-                                 <div class="custom-control custom-checkbox">
-                                     <input type="checkbox" class="custom-control-input" id="same-address">
-                                     <label class="custom-control-label" for="same-address">Ninguna</label>
-                                   </div>
-                                   <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="same-address">
-                                    <label class="custom-control-label" for="same-address">Todas</label>
-                                  </div>
-                                  @foreach($areas as $item2)
-                                  <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="same-address">
-                                    <label class="custom-control-label" for="same-address">{{$item2->nombre}}</label>
-                                  </div>
-                                  @endforeach()
-                                   
-                                   </div>
-                                   
-                         </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-4 mb-3">
+                                    
+                              <select class="form-control form-control-sm d-block w-100" name="servicio" required>
+                                <option value="">Seleccione una categoría...</option>
+                                @foreach($categorias as $item2)
+                                <option>{{$item2->nombre}}</option>
+                                @endforeach()
+                              </select>
+                          </div>
+                          <div class="col-md-4 mb-3">
                                     
                               <select class="form-control form-control-sm d-block w-100" name="servicio" required>
                                 <option value="">Seleccione un servicio...</option>
@@ -72,19 +61,20 @@
                               </select>
                           </div>
                           
-                          <div class="col-md-6 mb-3">
+                          <div class="col-md-4 mb-3">
+                          <input type="text" class="form-control form-control-sm" name="reportador" placeholder="¿quién reportó el evento?" value="" required>
+                                <div class="invalid-feedback">
+                                  Este campo es requerido.
+                                </div>
+                         </div>
+                        </div>
+                      </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
                             <input type="text" class="form-control form-control-sm" name="accioncorr" placeholder="Acción correctiva" required>
                           <div class="invalid-feedback">
                             Por favor introduzca la acción realizada.
                           </div>
-                         </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <input type="text" class="form-control form-control-sm" name="reportador" placeholder="Indique quién reportó el evento" value="" required>
-                                <div class="invalid-feedback">
-                                  Este campo es requerido.
-                                </div>
                             </div>
                             <div class="col mb-6">
                               <input type="text" class="form-control form-control-sm" name="observacion" placeholder="Observación">
@@ -125,7 +115,18 @@
                           
                           </div>
                         </div>
-                        
+                        <div class="row">
+                                 <div class="col-md-6 mb-3"> 
+                                 <h6 class="font-weight-bold">Áreas afectadas:</h6>
+                                 <input type="checkbox" id="selectall"> Todas
+                                 <br>
+                                 @foreach($areas as $item)
+                                  <input type="checkbox" class="case" name="case[]"> {{$item->nombre}}
+                                  <br>
+                                  @endforeach()
+                                   </div>
+                                   
+                         </div>
                          
                         <hr class="mb-2">
                         
@@ -195,4 +196,19 @@
     </section>
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script>
+        $("#selectall").on("click", function() {  
+  $(".case").prop("checked", this.checked);  
+});  
+
+// if all checkbox are selected, check the selectall checkbox and viceversa  
+$(".case").on("click", function() {  
+  if ($(".case").length == $(".case:checked").length) {  
+    $("#selectall").prop("checked", true);  
+  } else {  
+    $("#selectall").prop("checked", false);  
+  }  
+});
+      </script>
 @endsection

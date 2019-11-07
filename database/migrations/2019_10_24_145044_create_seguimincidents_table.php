@@ -20,7 +20,8 @@ class CreateSeguimincidentsTable extends Migration
             $table->unsignedBigInteger('id_responsable');
             $table->foreign('id_responsable')->references('id')->on('users');
             $table->string('status');
-            $table->mediumText('observacion');
+            $table->mediumText('observacion')->nullable();
+            $table->mediumText('accion');
             $table->timestamp('fecha_seg')->nullable();
             $table->timestamps();
             //$table->timestamp('fecha_reg')->nullable();

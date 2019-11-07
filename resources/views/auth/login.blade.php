@@ -89,12 +89,17 @@
                     @csrf
                     
                         <div class="text-center mb-4" >
-                          <img class="mb-4" src="img/libro.jpg" alt="" width="72" height="72">
+                         <!-- <img class="mb-4" src="img/libro.jpg" alt="" width="72" height="72">-->
                           <h2 class="mb-3 text-center text-danger">INICIAR SESIÓN</h2>
                         </div>
-                       
+                        
                         <div class="form-label-group my-4">
-                          <input  name="nameuser" value="{{ old('nameuser') }}" class="form-control" placeholder="Ingrese usuario" required autofocus>
+                          <input  name="nameuser" value="{{ old('nameuser') }}" class="form-control{{ $errors->has('nameuser') ? ' is-invalid' : '' }}" placeholder="Ingrese usuario" required autofocus>
+                          @if ($errors->has('nameuser'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('nameuser') }}</strong>
+                                    </span>
+                                @endif
                         </div>
                       
                         <div class="form-label-group my-3">

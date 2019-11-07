@@ -19,7 +19,7 @@
                     <table class="table">
                         <thead class="thead-light">
                           <tr>
-                            <th><input type="checkbox" class="checkthis" /></th>
+                            <th><input type="checkbox" id="selectall" class="checkthis" /></th>
                             <th scope="col">Código del servicio</th>
                             <th scope="col">Servicio</th>
                             <th scope="col">Estado</th>
@@ -29,7 +29,7 @@
                         <tbody>
                           <tr>
                           @foreach($servicios as $item)
-                            <th><input type="checkbox" class="checkthis" /></th>
+                            <th><input type="checkbox" class="case" name="case[]" /></th>
                             <td>{{$item->id}}</td>
                             <td>{{$item->nombre}}</td>
                             <td>{{$item->statuscomport}}</td>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-4">
                             <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
-                            <table class="table table-hover">
+                            <table class="table table-hover table-bordered">
                                 <thead class="">
                                   <tr class="bg-light">
                                   <th scope="col">Código</th>
@@ -59,17 +59,31 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($servicios as $item)
+                                  @foreach($listserv as $item2)
                                   <tr>
-                                    <th scope="row">{{$item->id}}</th>
-                                    <td>{{$item->nombre}}</td>
-                                    <td>{{$item->statuscomport}}</td>
-                                    <td>{{$item->created_at}}</td>
+                                    <th scope="row">{{$item2->id}}</th>
+                                    <td>{{$item2->nombre}}</td>
+                                    <td>{{$item2->statuscomport}}</td>
+                                    <td>{{$item2->created_at}}</td>
                                   </tr>
                                 @endforeach()
                                 </tbody>
                               </table>
-                      
+                              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script>
+        $("#selectall").on("click", function() {  
+  $(".case").prop("checked", this.checked);  
+});  
+
+// if all checkbox are selected, check the selectall checkbox and viceversa  
+$(".case").on("click", function() {  
+  if ($(".case").length == $(".case:checked").length) {  
+    $("#selectall").prop("checked", true);  
+  } else {  
+    $("#selectall").prop("checked", false);  
+  }  
+});
+      </script>
                                
                         </div>
         </div>

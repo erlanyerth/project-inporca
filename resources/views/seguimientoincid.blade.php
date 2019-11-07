@@ -9,15 +9,49 @@
                     <div class="card-body text-dark ">
                             <h4 class="mb-3 text-center text-danger">SEGUIMIENTO DE INCIDENCIA</h4>
                             <hr class="mb-2">
-                            <form class="needs-validation" novalidate>
-                            @csrf
+                            @if (session('mensaje'))
+                                    <div class="alert alert-success alert-dismissible fade show">
+                                      {{ session('mensaje') }}
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+                                      </div>
+
+                                  @endif
+                            <form method="POST" action="/seguimientoIncidencia" class="needs-validation" novalidate>
+                            @csrf 
+
+                                    @foreach ($errors->get('fechayhora') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡La fecha es obligatoria!
+                                      </div>
+                                    @endforeach
+                                    @foreach ($errors->get('servicio') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡Seleccione un servicio!
+                                      </div>
+                                    @endforeach
+                                    @foreach ($errors->get('accion') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡Ingrese una acción correctiva!
+                                      </div>
+                                    @endforeach
+                                    @foreach ($errors->get('status') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡Seleccione un estado!
+                                      </div>
+                                    @endforeach
                             <div class="mb-4">
                             <h6 class="font-weight-bold">Fecha y hora del seguimiento</h6>
                             <input type="datetime-local" name="fechayhora">
                            </div>
                                 <div class="mb-3">
                                     <label class="font-weight-bold" for="state">Servicio con problema registrado</label>
-                                    <select class="form-control d-block w-100" id="state" required>
+                                    <select class="form-control d-block w-100" id="state" name="servicio" required>
                                       <option value="">Seleccione...</option>
                                       @foreach($servicio as $item)
                                       <option>{{$item->nombre}}</option>
@@ -25,13 +59,13 @@
                                     </select>
                                   </div>
                                   <div class="mb-3">
-                              <input type="text" class="form-control" id="firstName" placeholder="Acción correctiva" value="" required>
+                              <input type="text" class="form-control" id="firstName" name="accion" placeholder="Acción correctiva" value="" required>
                               <div class="invalid-feedback">
                                 Valid first name is required.
                               </div>
                             </div>
                                 <div class="mb-3">
-                                  <input type="text" class="form-control" id="firstName" placeholder="Observación" value="" required>
+                                  <input type="text" class="form-control" id="firstName" name="observacion" placeholder="Observación" value="" required>
                                   <div class="invalid-feedback">
                                     Valid first name is required.
                                   </div>
@@ -40,7 +74,7 @@
                                
                               <div class="mb-3">
                               <label class="font-weight-bold" for="state">Estado actual del servicio</label>
-                              <select class="form-control d-block w-100" id="state" required>
+                              <select class="form-control d-block w-100" name="status" id="state" required>
                                 <option value="">Seleccione...</option>
                                 <option>OK</option>
                                   <option>Warning</option>
@@ -54,7 +88,7 @@
                               <hr class="mb-2">
                               <div class="text-center">
                                 <p>
-                                  <button type="button" class="btn btn-success">Guardar</button>
+                                  <button type="submit" class="btn btn-success">Guardar</button>
                                   <button type="button" class="btn btn-danger">Cancelar</button>
                                 </p>
                               </div>

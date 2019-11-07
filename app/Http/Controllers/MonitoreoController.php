@@ -17,8 +17,10 @@ class MonitoreoController extends Controller
     }
      public function index()
     {
-        $servicios = App\Servicio::all();
-        return view('/monitoreo', compact('servicios'));
+        $servicios = App\Servicio::where('statuscomport', 'Ok')->get();
+        $listserv = App\Servicio::where('statusact', 'Activo')->orderBy('statuscomport', 'asc')
+                                 ->get();
+        return view('/monitoreo', compact('servicios', 'listserv'));
     }
 
     /**

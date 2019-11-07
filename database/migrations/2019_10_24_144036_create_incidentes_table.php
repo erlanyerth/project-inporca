@@ -20,7 +20,7 @@ class CreateIncidentesTable extends Migration
             $table->unsignedBigInteger('id_responsable');
             $table->foreign('id_responsable')->references('id')->on('users');
             $table->string('accion_correc');
-            $table->string('observacion');
+            $table->string('observacion')->nullable();
             $table->string('metodo_notif');
             $table->string('reportador');
             $table->string('status');

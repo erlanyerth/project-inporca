@@ -28,8 +28,8 @@ class ServicioController extends Controller
         else{
             $codigo = $max + 1;
         }
-        $categorias = App\Categoria::all();
-       // $categorias = App\Categoria::where('status', 'Activo');
+       // $categorias = App\Categoria::all();
+       $categorias = App\Categoria::where('status', 'Activo')->get();
         return view('regservicio', compact('categorias', 'codigo'));
         //return view('regservicio', compact('servicios'));
     }
@@ -61,11 +61,10 @@ class ServicioController extends Controller
                  $servicionuevo->nombre = $request->nombre;
                  $servicionuevo->id = $request->id;
                  $servicionuevo->statusact = "Activo";
-                 $servicionuevo->statuscomport = "Bien";
+                 $servicionuevo->statuscomport = "Ok";
                  $servicionuevo->frecuencia = $request->frecuencia;
-                 $categoriaid = App\Categoria::where('nombre', $request->idcateg);
-                 $servicionuevo->idcateg = 5000;
-                 //$servicionuevo->idcateg = $categoriaid->id;
+                 $categoriaid = App\Categoria::where('nombre', $request->idcateg)->first();
+                 $servicionuevo->idcateg = $categoriaid->id;
                  $servicionuevo->save();
                  
                  return back()->with('mensaje', '¡El servicio se ha registrado correctamente!');

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use App\Seguimincident;
+use App\Incidente;
+use App\Servicio;
 class SeguimientoController extends Controller
 {
     /**
@@ -18,7 +21,8 @@ class SeguimientoController extends Controller
     public function index()
     {
       
-        $servicio = App\Servicio::all();
+        //$servicio = App\Servicio::all();
+        $servicio = App\Servicio::where('statuscomport', 'Failed')->get();
         return view('seguimientoincid', compact('servicio'));
         //return view('/seguimientoincid');
     }
@@ -41,7 +45,24 @@ class SeguimientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fechayhora' => 'required',
+            'servicio' => 'required',
+            'accion' => 'required',
+            'status' => 'required'
+          ]);   
+        $seguimiento = new Seguimincident();
+        $seguimiento->observacion = $request->observacion;
+        //$seguimiento->accion = $request->accion;
+        $seguimiento->status = $request->status;
+        $seguimiento->fecha_seg = $request->fechayhora;
+        $seguimiento->id_responsable = auth()->user()->id;
+        $idserv = App\Servicio::where('nombre', $request->servicio)->first();       
+        $idincident = App\Incidente::where('id_serv', $idserv->id)->max('id');
+        $seguimiento->id_incident = $idincident;
+        $seguimiento->save();
+                 
+                 return back()->with('mensaje', '¡El seguimiento se ha registrado correctamente!');
     }
 
     /**
