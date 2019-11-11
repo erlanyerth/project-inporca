@@ -28,9 +28,9 @@
                                   <hr class="mb-4">
                                       <div class="mb-3">
                                         <!-- <fieldset disabled>-->
-                                        <label for="firstName" name="id" value="{{ $codigo }}">Código de la categoría:</label>
+                                        <label for="firstName" name="idcateg" value="{{ $codigo }}">Código de la categoría:</label>
                                         
-                                        <input type="text" class="form-control" id="firstName"  value="{{ $codigo }}" placeholder="" disabled>
+                                        <input type="text" class="form-control"   value="{{ $codigo }}" placeholder="" disabled>
                                         
                                         <!--<fieldset disabled></fieldset>-->
                                       </div>
@@ -39,7 +39,7 @@
                                     
                                         <div class="mb-3">
                                               <label for="firstName">Nombre:</label>
-                                            <input type="text" class="form-control" name="nombre" id="firstName" placeholder="Escriba el nombre de la categoría" value="">
+                                            <input type="text" class="form-control" name="nombre"  placeholder="Escriba el nombre de la categoría" value="">
                                            
                                         </div>
                                       

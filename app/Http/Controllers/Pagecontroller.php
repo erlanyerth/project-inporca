@@ -46,6 +46,10 @@ class Pagecontroller extends Controller
     public function seguimiento(){
         return view('/seguimientoincid');
     }
+    public function prueba(){
+        $categorias = App\Categoria::all();
+        return view('/prueba', compact('categorias'));
+    }
     public function monitoreo(){
         $servicios = App\Servicio::all();
         return view('/monitoreo', compact('servicios'));
@@ -83,6 +87,9 @@ class Pagecontroller extends Controller
                  $areanueva->save();
                  return back()->with('mensaje', '¡El Área se ha registrado correctamente!');
      }
+     public function byFoundation($id){
+        return Servicio::where('idcateg','=',$id)->get();
+    }
     public function crearservicio(Request $request){
         //return $request->all(); //para consultar que los datos viajen bien
        /* $request->validate([

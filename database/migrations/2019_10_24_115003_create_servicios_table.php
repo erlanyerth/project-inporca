@@ -27,6 +27,8 @@ class CreateServiciosTable extends Migration
             $table->string('statusact');
             $table->string('statuscomport');
             $table->string('frecuencia');
+            $table->time('dispon_desde');
+            $table->time('dispon_hasta');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@
 <div class="container"> 
 <section class="mt-2 pt-3 container-fluid">
         <div class="container-fluid">
-          
+          @inject('categorias', 'App\services\categ')
             <div class="row">
                     
                     <div class="col-md-8 ">
@@ -46,18 +46,17 @@
                          <div class="row">
                                     <div class="col-md-4 mb-3">
                                     
-                              <select class="form-control form-control-sm d-block w-100" name="servicio" required>
-                                <option value="">Seleccione una categoría...</option>
-                                @foreach($categorias as $item2)
-                                <option>{{$item2->nombre}}</option>
+                              <select class="form-control form-control-sm d-block w-100" id="categ" name="categ_id" required>
+                                
+                                @foreach($categorias->get() as $index => $categoria)
+                                <option value="{{ $index }}" {{ old('categ_id') == $index ? 'selected' : '' }}>{{ $categoria }}</option>
                                 @endforeach()
                               </select>
                           </div>
                           <div class="col-md-4 mb-3">
-                                    
-                              <select class="form-control form-control-sm d-block w-100" name="servicio" required>
-                                <option value="">Seleccione un servicio...</option>
-                                <option>DNS</option>
+                          
+                              <select class="form-control form-control-sm d-block w-100" id="serv" name="serv" required>
+                                
                               </select>
                           </div>
                           
@@ -194,9 +193,8 @@
           </div>
       
     </section>
-
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
       <script>
         $("#selectall").on("click", function() {  
   $(".case").prop("checked", this.checked);  
@@ -211,4 +209,41 @@ $(".case").on("click", function() {
   }  
 });
       </script>
+        <script>
+        $("#selectall").on("click", function() {  
+  $(".case").prop("checked", this.checked);  
+});  
+
+// if all checkbox are selected, check the selectall checkbox and viceversa  
+$(".case").on("click", function() {  
+  if ($(".case").length == $(".case:checked").length) {  
+    $("#selectall").prop("checked", true);  
+  } else {  
+    $("#selectall").prop("checked", false);  
+  }  
+});
+      </script>
+    @endsection
+@section('script')
+<script>
+  $(document).ready(function(){
+      $('#categ').on('change', function() {
+        var categ_id = $(this).val();
+        if ($.trim(categ_id) != '') {
+            $.get('serviciolist', {categ_id: categ_id}, function (servicios) {
+             //console.log("servicio");
+              $('#serv').empty();
+              $('#serv').append("<option value=''>selecciona una...</option>");
+              $.each(servicios, function (index, value) {
+                $('#serv').append("<option value='" + index + "'>"+ value +"</option>");
+              })
+            });
+        } 
+            
+      });
+  });
+</script> 
+
+
+      
 @endsection

@@ -73,8 +73,13 @@
                                               <option>Mensual</option>
                                             </select>
                                           </div>
-                                        
-                
+                                          <div class="mb-3">
+                                            <label >Disponibilidad:</label>
+                                            </div>
+                                          <label >Desde: </label>
+                                          <input class="border-dark" type="time" name="horadesde">
+                                          <label >Hasta: </label>
+                                          <input class="border-dark" type="time" name="horahasta">
                                       <hr class="mb-4">
                                       <div class="text-center">
                                         <p>

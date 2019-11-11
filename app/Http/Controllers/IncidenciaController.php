@@ -28,6 +28,16 @@ class IncidenciaController extends Controller
         $areas = App\Area::all();
         return view('/registrarincid', compact('categorias', 'areas', 'codigo'));
     }
+    public function getserv(Request $request){
+        if($request->ajax()) {
+            $serv = Servicio::where('idcateg', $request->categ_id)
+            ->get();
+            foreach ($serv as $servicio){
+                $servicioArray[$servicio->id] = $servicio->nombre;
+            }
+            return response()->json( $servicioArray);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

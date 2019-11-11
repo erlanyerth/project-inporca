@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App;
-use App\Servicio;
-class ServicioController extends Controller
+
+class RegistuserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +17,7 @@ class ServicioController extends Controller
     }
     public function index()
     {
-        //return auth()->user();
-       
-        
-        $max = App\Servicio::all()->max('id');
-        if ( $max == 0){
-            $codigo = 6000;
-        }
-        else{
-            $codigo = $max + 1;
-        }
-       // $categorias = App\Categoria::all();
-       $categorias = App\Categoria::where('status', 'Activo')->get();
-        return view('regservicio', compact('categorias', 'codigo'));
-        //return view('regservicio', compact('servicios'));
+        //
     }
 
     /**
@@ -52,25 +38,32 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'idcateg' => 'required',
-            'frecuencia' => 'required'
-          ]);   
-        $servicionuevo = new Servicio();
-                 $servicionuevo->nombre = $request->nombre;
-                 $servicionuevo->id = $request->id;
-                 $servicionuevo->statusact = "Activo";
-                 $servicionuevo->statuscomport = "Ok";
-                 $servicionuevo->frecuencia = $request->frecuencia;
-                 $servicionuevo->dispon_desde = $request->horadesde;
-                 $servicionuevo->dispon_hasta = $request->horahasta;
-                 $categoriaid = App\Categoria::where('nombre', $request->idcateg)->first();
-                 $servicionuevo->idcateg = $categoriaid->id;
-                 $servicionuevo->save();
-                 
-                 return back()->with('mensaje', '¡El servicio se ha registrado correctamente!');
+       $request->validate([
+            'name' => 'required|string|max:50',
+            'nameuser' => 'required|string|max:10|unique:users',
+            //'tipouser' => 'required|string|max:255',
+            
+            //'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        $status = 'Activo';
+        $tipo = 'General';
+        return User::create([
+            'name' => $data['name'],
+            'nameuser' => $data['nameuser'],
+            'tipouser' => $tipo,
+            'status' => $status,
+           // 'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+        /*$usernueva = new Users();
+        $usernueva->name = $request->name;
+        $usernueva->status = "Activo";
+
+        $usernueva->save();
+        return back()->with('mensaje', '¡El usuario se ha registrado correctamente!');*/
     }
+   
 
     /**
      * Display the specified resource.
@@ -117,5 +110,3 @@ class ServicioController extends Controller
         //
     }
 }
-
-

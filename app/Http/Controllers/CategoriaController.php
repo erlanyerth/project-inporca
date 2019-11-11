@@ -46,17 +46,18 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         $request->validate([
           'nombre' => 'required'
         ]);         
 
         $categorianueva = new Categoria();
         $categorianueva->nombre = $request->nombre;
-        $categorianueva->id = $request->id;
+        $categorianueva->id = $request->idcateg;
         $categorianueva->status = "Activo";
 
         $categorianueva->save();
-        return back()->with('mensaje', '¡La categoría se ha registrado correctamente!');
+        //return back()->with('mensaje', '¡La categoría se ha registrado correctamente!');
     }
 
     /**
