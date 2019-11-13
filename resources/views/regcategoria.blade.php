@@ -30,7 +30,7 @@
                                         <!-- <fieldset disabled>-->
                                         <label for="firstName" name="idcateg" value="{{ $codigo }}">Código de la categoría:</label>
                                         
-                                        <input type="text" class="form-control"   value="{{ $codigo }}" placeholder="" disabled>
+                                        <input type="text" class="form-control" name="idcateg"   value="{{ $codigo }}" placeholder="" readonly>
                                         
                                         <!--<fieldset disabled></fieldset>-->
                                       </div>

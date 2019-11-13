@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use App\Servicio;
+use App\Monitoreo;
 class MonitoreoController extends Controller
 {
     /**
@@ -41,7 +43,21 @@ class MonitoreoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request->all();
+        
+        //$monitor->nombre = $request->nombre;
+        //$monitor->id = $request->idcateg;
+        //$monitor->status = "Activo";
+        foreach ($request as $monitor){
+            $monitoreo = new Monitoreo();
+            $monitoreo->id_responsable = auth()->user()->id;
+            //$monitoreo->fecha_monit = $monitor->fechayhora;
+            //$monitoreo->fecha_reg = $monitor->fechayhora;
+            $idserv = App\Servicio::where('nombre', $monitor->nombre[1])->first();
+            $monitoreo->id_serv = $idserv->id;
+            $monitoreo->save();
+        }
+        return back()->with('mensaje', '¡Se ha registrado correctamente!');
     }
 
     /**

@@ -41,7 +41,7 @@
                                             
                                           <label name="id" value="{{ $codigo }}" for="firstName">Código del Servicio:</label>
                                           
-                                          <input type="text" class="form-control" id="firstName"  value="{{ $codigo }}" placeholder="" disabled  required>
+                                          <input type="text" class="form-control" name="id" id="firstName"  value="{{ $codigo }}" placeholder="" readonly  required>
                                         </div>
                                         
                                        

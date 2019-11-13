@@ -20,7 +20,7 @@ class CreateMonitoreosTable extends Migration
             $table->unsignedBigInteger('id_responsable');
             $table->foreign('id_responsable')->references('id')->on('users');
             $table->dateTime('fecha_monit');
-            $table->dateTime('fecha_reg');
+            $table->timestamps();
         });
     }
 

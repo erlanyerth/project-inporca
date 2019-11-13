@@ -22,7 +22,7 @@
                     <div class="col-md-8 ">
                       <h4 class="mb-3 text-danger">REGISTRO DE INCIDENCIA</h4>
                       <hr class="mb-2">
-                      <form class="needs-validation" novalidate>
+                      <form  class="needs-validation" novalidate>
                       @csrf
                         <div class="row">
                           <!--div class="col-md-3 mb-3">
@@ -55,7 +55,7 @@
                           </div>
                           <div class="col-md-4 mb-3">
                           
-                              <select class="form-control form-control-sm d-block w-100" id="serv" name="serv" required>
+                              <select class="form-control form-control-sm d-block w-100" id="serv" data-old="{{ old('serv_id') }}" name="serv_id" required>
                                 
                               </select>
                           </div>
@@ -194,7 +194,7 @@
       
     </section>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
       <script>
         $("#selectall").on("click", function() {  
   $(".case").prop("checked", this.checked);  
@@ -226,16 +226,18 @@ $(".case").on("click", function() {
     @endsection
 @section('script')
 <script>
+
   $(document).ready(function(){
-      $('#categ').on('change', function() {
+      $("#categ").on("change", function() {
         var categ_id = $(this).val();
+        console.log("servicio");
         if ($.trim(categ_id) != '') {
-            $.get('serviciolist', {categ_id: categ_id}, function (servicios) {
-             //console.log("servicio");
-              $('#serv').empty();
-              $('#serv').append("<option value=''>selecciona una...</option>");
+            $.get("select", {categ_id: categ_id}, function (servicios) {
+             console.log("servicio");
+              $("#serv").empty();
+              $("#serv").append("<option value="">selecciona una...</option>");
               $.each(servicios, function (index, value) {
-                $('#serv').append("<option value='" + index + "'>"+ value +"</option>");
+                $("#serv").append("<option value='" + index + "'>"+ value +"</option>");
               })
             });
         } 

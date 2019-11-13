@@ -90,6 +90,16 @@ class Pagecontroller extends Controller
      public function byFoundation($id){
         return Servicio::where('idcateg','=',$id)->get();
     }
+    public function getserv(Request $request){
+        if($request->ajax()) {
+            $serv = Servicio::where('idcateg', $request->categ_id)
+            ->get();
+            foreach ($serv as $servicio){
+                $servicioArray[$servicio->id] = $servicio->nombre;
+            }
+            return response()->json( $servicioArray);
+        }
+    }
     public function crearservicio(Request $request){
         //return $request->all(); //para consultar que los datos viajen bien
        /* $request->validate([

@@ -30,7 +30,7 @@
                                         
                                         <label name="id" value="{{ $codigo }}" >Código del Área:</label>
                                         
-                                        <input type="text" class="form-control" value="{{ $codigo }}"  placeholder="" disabled>
+                                        <input type="text" name="id" class="form-control" value="{{ $codigo }}"  placeholder="" readonly>
                                         
                                       </div>
                                       

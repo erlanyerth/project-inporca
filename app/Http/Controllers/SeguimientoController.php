@@ -22,7 +22,8 @@ class SeguimientoController extends Controller
     {
       
         //$servicio = App\Servicio::all();
-        $servicio = App\Servicio::where('statuscomport', 'Failed')->get();
+        $servicio = App\Servicio::where('statuscomport', 'Failed')
+        ->orWhere('statuscomport', 'Warning')->get();
         return view('seguimientoincid', compact('servicio'));
         //return view('/seguimientoincid');
     }
@@ -53,15 +54,19 @@ class SeguimientoController extends Controller
           ]);   
         $seguimiento = new Seguimincident();
         $seguimiento->observacion = $request->observacion;
-        //$seguimiento->accion = $request->accion;
+        $seguimiento->accion = $request->accion;
         $seguimiento->status = $request->status;
         $seguimiento->fecha_seg = $request->fechayhora;
         $seguimiento->id_responsable = auth()->user()->id;
-        $idserv = App\Servicio::where('nombre', $request->servicio)->first();       
-        $idincident = App\Incidente::where('id_serv', $idserv->id)->max('id');
+        //$idserv = App\Servicio::where('nombre', $request->servicio)->first();       
+        $idincident = App\Incidente::where('id_serv', $request->servicio)->max('id');
         $seguimiento->id_incident = $idincident;
+
+        $updateserv = App\Servicio::find($request->servicio);
+        $updateserv->statuscomport = $request->status;
+        $updateserv->save();
         $seguimiento->save();
-                 
+               
                  return back()->with('mensaje', '¡El seguimiento se ha registrado correctamente!');
     }
 
@@ -94,9 +99,12 @@ class SeguimientoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //$serviactualizar = App\Servicio::find($request->servicio);
+        //$serviactualizar->statuscomport = $request->status;
+        //$serviactualizar->save();
+       //return back();
     }
 
     /**

@@ -46,7 +46,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //return $request->all();
         $request->validate([
           'nombre' => 'required'
         ]);         
@@ -57,7 +57,7 @@ class CategoriaController extends Controller
         $categorianueva->status = "Activo";
 
         $categorianueva->save();
-        //return back()->with('mensaje', '¡La categoría se ha registrado correctamente!');
+        return back()->with('mensaje', '¡La categoría se ha registrado correctamente!');
     }
 
     /**

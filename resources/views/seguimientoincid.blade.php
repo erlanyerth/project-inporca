@@ -19,6 +19,7 @@
 
                                   @endif
                             <form method="POST" action="/seguimientoIncidencia" class="needs-validation" novalidate>
+                         
                             @csrf 
 
                                     @foreach ($errors->get('fechayhora') as $error)
@@ -54,7 +55,7 @@
                                     <select class="form-control d-block w-100" id="state" name="servicio" required>
                                       <option value="">Seleccione...</option>
                                       @foreach($servicio as $item)
-                                      <option>{{$item->nombre}}</option>
+                                      <option value="{{$item->id}}" >{{$item->nombre}}</option>
                                       @endforeach()
                                     </select>
                                   </div>

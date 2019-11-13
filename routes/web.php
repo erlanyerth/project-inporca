@@ -20,9 +20,9 @@ Route::resource('/area', 'AreaController');
 Route::resource('/monitoreo', 'MonitoreoController');
 Route::resource('/incidencia', 'IncidenciaController');
 Route::resource('/seguimientoIncidencia', 'SeguimientoController');
-Route::resource('/serviciolist', 'IncidenciaController@getserv');
+Route::get('/serviciolist', 'IncidenciaController@getserv');
 Route::resource('/RegistrarUser', 'RegistuserController');
-
+Route::get('/select', 'Pagecontroller@getserv');
 
 
 Route::get('prueba', 'Pagecontroller@prueba')->name('prueba');
