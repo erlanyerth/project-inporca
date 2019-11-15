@@ -7,12 +7,33 @@
                 <div class="col-md-8 ">
                 <form  method="POST" action="/monitoreo">
                                     @csrf 
+                                    @foreach ($errors->get('fechayhora') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡La fecha es obligatorio!
+                                      </div>
+                                    @endforeach
+                                    
+                                    @foreach ($errors->get('case') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡Debe seleccionar al menos una opción!
+                                      </div>
+                                    @endforeach
                         <h4 class="mb-3 text-center text-danger">MONITOREO DE SERVICIOS</h4>
+                        @if (session('mensaje'))
+                                    <div class="alert alert-success alert-dismissible fade show">
+                                      {{ session('mensaje') }}
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+                                      </div>
+
+                                  @endif
                         <div class="row">
                                 <div class="col-md-4 mb-4">
-                                
                                         <h6 class="font-weight-bold">Fecha y hora del seguimiento</h6>
-                                        <input type="datetime-local" name="fechayhora">
+                                        <input type="datetime-local" value="{{ old('fechayhora') }}" name="fechayhora">
                                     </div>
                                        
                                         
@@ -32,13 +53,13 @@
                         <tbody>
                           <tr>
                           @foreach($servicios as $item)
-                            <th><input type="checkbox"  class="case" name="case[]" /></th>
-                            <td><input class="form-control" type="text" name="id[]" value="{{$item->id}}" readonly></td>
+                            <td><input type="checkbox"  class="case"   name="case[]" value="{{$item->id}}"/></td>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->nombre}}</td>
+                            <td>{{$item->statuscomport}}</td>
+                            <!--<td><input class="form-control" type="text" name="id[]" value="{{$item->id}}" readonly></td>
                             <td><input class="form-control" type="text" name="nombre[]" value="{{$item->nombre}}" readonly></td>
-                            <td><input class="form-control" type="text" name="status[]" value="{{$item->statuscomport}}" readonly></td>
-                            <!--<td type="text" name="id[]">{{$item->id}}</td>
-                            <td  type="text" name="nombre[]">{{$item->nombre}}</td>
-                            <td type="text" name="status[]">{{$item->statuscomport}}</td>-->
+                            <td><input class="form-control" type="text" name="status[]" value="{{$item->statuscomport}}" readonly></td>-->
                             
                           </tr>
                           @endforeach()
@@ -71,7 +92,7 @@
                                     <th scope="row">{{$item2->id}}</th>
                                     <td>{{$item2->nombre}}</td>
                                     <td>{{$item2->statuscomport}}</td>
-                                    <td>{{$item2->created_at}}</td>
+                                    <td>{{$item2->updated_at}}</td>
                                   </tr>
                                 @endforeach()
                                 </tbody>
@@ -101,11 +122,8 @@ $(".case").on("click", function() {
      
 </section>
 </div>
-<script type="text/javascript">
-    var table = $('#tabla');
-    $('#agregar').click(function(){
-        agregar();
-    });
+
+
 
     
 @endsection

@@ -43,6 +43,7 @@
                             <h6 class="font-weight-bold">Fecha y hora del reporte</h6>
                             <input type="datetime-local" name="fechareporte">
                          </div>
+                         </div>
                          <div class="row">
                                     <div class="col-md-4 mb-3">
                                     
@@ -67,7 +68,7 @@
                                 </div>
                          </div>
                         </div>
-                      </div>
+                     
                         <div class="row">
                             <div class="col-md-6 mb-3">
                             <input type="text" class="form-control form-control-sm" name="accioncorr" placeholder="Acción correctiva" required>

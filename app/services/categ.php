@@ -5,7 +5,7 @@ class categ
 {
     public function get(){
         $categorias = Categoria::get();
-        $categoriasArray[''] = 'selecciona una categ';
+        $categoriasArray[''] = 'selecciona una categoría';
         foreach ($categorias as $categoria) {
             $categoriasArray[$categoria->id] =$categoria->nombre;
         }

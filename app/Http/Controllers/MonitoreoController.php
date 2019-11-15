@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App;
 use App\Servicio;
 use App\Monitoreo;
+use Carbon\Carbon;
 class MonitoreoController extends Controller
 {
     /**
@@ -43,20 +44,28 @@ class MonitoreoController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->all();
+        $request->validate([
+            'fechayhora' => 'required',
+            'case' => 'required'
+          ]);    
+       // return $request->all();
         
-        //$monitor->nombre = $request->nombre;
-        //$monitor->id = $request->idcateg;
-        //$monitor->status = "Activo";
-        foreach ($request as $monitor){
+        $fecha = $request->fechayhora;
+        $date = Carbon::now();
+
+        foreach ($request->case as $item=>$v){
+            
             $monitoreo = new Monitoreo();
             $monitoreo->id_responsable = auth()->user()->id;
-            //$monitoreo->fecha_monit = $monitor->fechayhora;
-            //$monitoreo->fecha_reg = $monitor->fechayhora;
-            $idserv = App\Servicio::where('nombre', $monitor->nombre[1])->first();
-            $monitoreo->id_serv = $idserv->id;
+            $monitoreo->fecha_monit = $fecha;
+            $monitoreo->id_serv = $request->case[$item];
+
+            $updateserv = App\Servicio::find($request->case[$item]);
+            $updateserv->updated_at = $date;
+            $updateserv->save();
             $monitoreo->save();
         }
+   
         return back()->with('mensaje', '¡Se ha registrado correctamente!');
     }
 
