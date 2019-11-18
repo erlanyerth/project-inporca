@@ -26,7 +26,7 @@ class CreateIncidentesTable extends Migration
             $table->string('status');
             $table->timestamp('fecha_reporte')->nullable();
             $table->timestamp('fecha_incidente')->nullable();
-            $table->timestamp('fecha_registro')->nullable();
+            $table->timestamps();
             $table->timestamp('fecha_sol')->nullable();
         });
     }

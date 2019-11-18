@@ -53,9 +53,11 @@ class ServicioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
-            'idcateg' => 'required',
-            'frecuencia' => 'required'
+            'nombre' => 'required|string|max:30|unique:servicios',
+            'categoria' => 'required',
+            'frecuencia' => 'required',
+            'horadesde' => 'required',
+            'horahasta' => 'required'
           ]);   
         $servicionuevo = new Servicio();
                  $servicionuevo->nombre = $request->nombre;

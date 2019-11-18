@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use App\Incidente;
 class IncidenciaController extends Controller
 {
     /**
@@ -17,16 +18,11 @@ class IncidenciaController extends Controller
     }
     public function index()
     {
-        $max = App\Incidente::all()->max('id');
-        if ( $max == 0){
-            $codigo = 9000;
-        }
-        else{
-            $codigo = $max + 1;
-        }
-        $categorias = App\Categoria::all();
+        
+        $categ = App\Categoria::all();
+        $servicio = App\Servicio::where('statusact', 'Activo')->get();
         $areas = App\Area::all();
-        return view('/registrarincid', compact('categorias', 'areas', 'codigo'));
+        return view('/registrarincid', compact('categ', 'areas', 'servicio'));
     }
     public function getserv(Request $request){
         if($request->ajax()) {
@@ -38,7 +34,9 @@ class IncidenciaController extends Controller
             return response()->json( $servicioArray);
         }
     }
-
+    public function byCategory($id){
+        return Servicio::where('idcateg', $id)->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -57,7 +55,29 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request->all();
+        $max = App\Incidente::all()->max('id');
+        if ( $max == 0){
+            $codigo = 9000;
+        }
+        else{
+            $codigo = $max + 1;
+        }
+        $incicidencianueva = new Incidente();
+        $incicidencianueva->id_serv = $request->serv_id;
+        $incicidencianueva->id = $codigo;
+        $incicidencianueva->id_responsable = auth()->user()->id;        
+        $incicidencianueva->accion_correc = $request->accioncorr;
+        $incicidencianueva->observacion = $request->observacion;
+        $incicidencianueva->metodo_notif = $request->metnotif;
+        $incicidencianueva->reportador = $request->reportador;
+        $incicidencianueva->fecha_reporte = $request->fechareporte;
+        $incicidencianueva->fecha_incidente = $request->fechaincid;
+        $incicidencianueva->fecha_sol = $request->fechasolucion;
+        $incicidencianueva->status = $request->status;
+
+        $incicidencianueva->save();
+        return back()->with('mensaje', '¡Se ha registrado correctamente!');
     }
 
     /**

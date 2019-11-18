@@ -47,7 +47,7 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required'
+            'nombre' => 'required|string|max:25|unique:areas'
         ]);         
 
         $areanueva = new Area();

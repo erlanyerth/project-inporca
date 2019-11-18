@@ -18,13 +18,6 @@
                                   @endif
                                   <form action="/area" method="POST">
                                     @csrf 
-
-                                    @foreach ($errors->get('nombre') as $error)
-
-                                      <div class="alert alert-danger">
-                                        ¡El nombre es obligatorio!
-                                      </div>
-                                    @endforeach
                                   <hr class="mb-4">
                                       <div class="mb-3">
                                         
@@ -38,8 +31,12 @@
                                     
                                         <div class="mb-3">
                                               <label >Nombre:</label>
-                                            <input type="text" class="form-control" name="nombre"  placeholder="Escriba el nombre del Área" value="">
-                                           
+                                            <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre"  placeholder="Escriba el nombre del Área" value="">
+                                            @if ($errors->has('nombre'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                    </span>
+                                @endif
                                         </div>
                                       
               

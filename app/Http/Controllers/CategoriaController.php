@@ -48,7 +48,7 @@ class CategoriaController extends Controller
     {
         //return $request->all();
         $request->validate([
-          'nombre' => 'required'
+          'nombre' => 'required|string|max:25|unique:categorias'
         ]);         
 
         $categorianueva = new Categoria();
