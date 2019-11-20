@@ -20,10 +20,33 @@
             <div class="row">
                     
                     <div class="col-md-8 ">
+                    <div class="card border-dark mx-auto">
+                          <div class="card-body text-dark ">
                       <h4 class="mb-3 text-danger">REGISTRO DE INCIDENCIA</h4>
                       <hr class="mb-2">
-                      <form  method="POST" action="/incidencia" class="needs-validation" novalidate>
+                      @if (session('mensaje'))
+                                    <div class="alert alert-success alert-dismissible fade show">
+                                      {{ session('mensaje') }}
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+                                      </div>
+
+                                  @endif
+                      <form  method="POST" id="myForm" action="/incidencia" class="needs-validation" novalidate>
                       @csrf
+                      @foreach ($errors->get('fechaincid') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡La fecha del incidente es obligatorio!
+                                      </div>
+                                    @endforeach
+                                    @foreach ($errors->get('fechareporte') as $error)
+
+                                      <div class="alert alert-danger">
+                                        ¡La fecha del reporte es obligatorio!
+                                      </div>
+                                    @endforeach
                         <div class="row">
                         
                           <div class="col-md-6 mb-3">
@@ -48,28 +71,37 @@
                           </div>-->
                           <div class="col-md-4 mb-3">
                           
-                              <select class="form-control form-control-sm d-block w-100" id="serv" data-old="{{ old('serv_id') }}" name="serv_id" required>
+                              <select class="form-control form-control-sm d-block w-100 {{ $errors->has('serv_id') ? ' is-invalid' : '' }}" id="serv" data-old="{{ old('serv_id') }}" name="serv_id" required>
                               <option value="">Seleccione</option>
                               @foreach($servicio as $item3) 
                                         <option value="{{$item3->id}}">{{$item3->nombre}}</option>  
                                       @endforeach()
                               </select>
+                              @if ($errors->has('serv_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('serv_id') }}</strong>
+                                    </span>
+                                @endif
                           </div>
                           
                           <div class="col-md-4 mb-3">
-                          <input type="text" class="form-control form-control-sm" name="reportador" placeholder="¿quién reportó el evento?" value="" required>
-                                <div class="invalid-feedback">
-                                  Este campo es requerido.
-                                </div>
+                          <input type="text" class="form-control form-control-sm{{ $errors->has('reportador') ? ' is-invalid' : '' }}" name="reportador" placeholder="¿quién reportó el evento?" value="" required>
+                          @if ($errors->has('reportador'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('reportador') }}</strong>
+                                    </span>
+                                @endif
                          </div>
                         </div>
                      
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control form-control-sm" name="accioncorr" placeholder="Acción correctiva" required>
-                          <div class="invalid-feedback">
-                            Por favor introduzca la acción realizada.
-                          </div>
+                            <input type="text" class="form-control form-control-sm{{ $errors->has('accioncorr') ? ' is-invalid' : '' }}" name="accioncorr" placeholder="Acción correctiva" required>
+                            @if ($errors->has('accioncorr'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('accioncorr') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="col mb-6">
                               <input type="text" class="form-control form-control-sm" name="observacion" placeholder="Observación">
@@ -80,7 +112,7 @@
                         <div class="row">
                           <div class="col-md-6 mb-3">
                             <h6 class="font-weight-bold">Método de notificación</h6>
-                            <select class="form-control form-control-sm d-block w-100" name="metnotif" required>
+                            <select class="form-control form-control-sm d-block w-100{{ $errors->has('metnotif') ? ' is-invalid' : '' }}" name="metnotif" required>
                               <option value="">Seleccione...</option>
                               <option>Correo</option>
                               <option>Teléfono</option>
@@ -88,21 +120,25 @@
                               <option>Monitor de eventos</option>
                               <option>Directo</option>
                             </select>
-                            <div class="invalid-feedback">
-                              Por favor seleccione un método válido.
-                            </div>
+                            @if ($errors->has('metnotif'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('metnotif') }}</strong>
+                                    </span>
+                                @endif
                           </div>
                           <div class="col-md-6 mb-3">
                               <h6 class="font-weight-bold">Estado</h6>
-                            <select class="form-control form-control-sm d-block w-100" name="status" required>
+                            <select class="form-control form-control-sm d-block w-100{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status" required>
                               <option value="">Seleccione...</option>
                               <option>OK</option>
                               <option>Warning</option>
                               <option>Failed</option>
                             </select>
-                            <div class="invalid-feedback">
-                                Por favor seleccione un estado válido.
-                            </div>
+                            @if ($errors->has('status'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('status') }}</strong>
+                                    </span>
+                                @endif
                           </div>
                           
                         </div>
@@ -117,8 +153,8 @@
                                  <input type="checkbox" id="selectall"> Todas
                                  <br>
                                  @foreach($areas as $item)
-                                  <input type="checkbox" class="case" name="case[]"> {{$item->nombre}}
-                                  <br>
+                                 <label><input type="checkbox" class="case" name="case[]" value="{{$item->id}}"> {{$item->nombre}}
+                                  </label><br>
                                   @endforeach()
                                    </div>
                         </div>
@@ -132,40 +168,39 @@
                         <div class="text-right">
                         <p>
                                         <button  type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="button" class="btn btn-danger">Cancelar</button>
+                                        <button type="button" onclick="myFunction()" value="Reset form" class="btn btn-danger">Cancelar</button>
                                       </p>
+                        </div>
+                        <hr class="mb-2">
+                        </div>
                         </div>
                         
                       </form>
-                      <hr class="mb-2">
+                      
                 </div>
                 <div class="col-md-4">
                     <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
-                    <table class="table table-hover">
-                        <thead class="">
-                          <tr class="bg-light">
-                            <th scope="col">Servicio</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Última actualización</th>
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            
-                          </tr>
-                        
-                        </tbody>
-                      </table>
+                    <table class="table table-hover table-bordered">
+                                <thead class="">
+                                  <tr class="bg-light">
+                                  <th scope="col">Código</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Última actualización</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  @foreach($listserv as $item2)
+                                  <tr>
+                                    <th scope="row">{{$item2->id}}</th>
+                                    <td>{{$item2->nombre}}</td>
+                                    <td>{{$item2->statuscomport}}</td>
+                                    <td>{{$item2->updated_at}}</td>
+                                  </tr>
+                                @endforeach()
+                                </tbody>
+                              </table>
                       
                
                       
@@ -177,7 +212,11 @@
       
     </section>
     </div>
-    
+    <script>
+function myFunction() {
+  document.getElementById("myForm").reset();
+}
+</script>
     <script>
         $("#selectall").on("click", function() {  
   $(".case").prop("checked", this.checked);  

@@ -24,7 +24,9 @@ class SeguimientoController extends Controller
         //$servicio = App\Servicio::all();
         $servicio = App\Servicio::where('statuscomport', 'Failed')
         ->orWhere('statuscomport', 'Warning')->get();
-        return view('seguimientoincid', compact('servicio'));
+        $listserv = App\Servicio::where('statusact', 'Activo')->orderBy('statuscomport', 'asc')
+                                 ->get();
+        return view('seguimientoincid', compact('servicio', 'listserv'));
         //return view('/seguimientoincid');
     }
 

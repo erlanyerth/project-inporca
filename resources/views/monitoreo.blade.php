@@ -5,7 +5,7 @@
 <section class="mt-3 pt-3 container-fluid">
         <div class="row">
                 <div class="col-md-8 ">
-                <form  method="POST" action="/monitoreo">
+                <form  method="POST" id="myForm" action="/monitoreo">
                                     @csrf 
                                     @foreach ($errors->get('fechayhora') as $error)
 
@@ -69,7 +69,7 @@
                       <div class="text-center">
                         <p>
                           <button type="submit" class="btn btn-success">Guardar</button>
-                          <button type="button" class="btn btn-danger">Cancelar</button>
+                          <button type="button" onclick="myFunction()" value="Reset form" class="btn btn-danger">Cancelar</button>
                         </p>
                       </div>
                     </div>
@@ -97,8 +97,9 @@
                                 @endforeach()
                                 </tbody>
                               </table>
-                              
-                              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                              </div>
+        </div>
+
       <script>
         $("#selectall").on("click", function() {  
   $(".case").prop("checked", this.checked);  
@@ -114,16 +115,13 @@ $(".case").on("click", function() {
 });
       </script>
                                
-                        </div>
-        </div>
-                    
-                
-        
-     
+                        
+    
 </section>
 </div>
-
-
-
-    
+<script>
+function myFunction() {
+  document.getElementById("myForm").reset();
+}
+</script> 
 @endsection

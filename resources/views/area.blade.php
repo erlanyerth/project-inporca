@@ -16,7 +16,7 @@
                                       </div>
 
                                   @endif
-                                  <form action="/area" method="POST">
+                                  <form action="/area" id="myForm" method="POST">
                                     @csrf 
                                   <hr class="mb-4">
                                       <div class="mb-3">
@@ -44,7 +44,7 @@
                                     <div class="text-center">
                                       <p>
                                         <button  type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="button" class="btn btn-danger">Cancelar</button>
+                                        <button type="button" onclick="myFunction()" value="Reset form" class="btn btn-danger">Cancelar</button>
                                       </p>
                                     </div>
                                     
@@ -58,4 +58,9 @@
             </section> 
      
 </div>
+<script>
+function myFunction() {
+  document.getElementById("myForm").reset();
+}
+</script>
 @endsection

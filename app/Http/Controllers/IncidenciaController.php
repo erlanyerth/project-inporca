@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\Incidente;
+use App\Areaafectada;
+use App\Servicio;
 class IncidenciaController extends Controller
 {
     /**
@@ -22,7 +24,9 @@ class IncidenciaController extends Controller
         $categ = App\Categoria::all();
         $servicio = App\Servicio::where('statusact', 'Activo')->get();
         $areas = App\Area::all();
-        return view('/registrarincid', compact('categ', 'areas', 'servicio'));
+        $listserv = App\Servicio::where('statusact', 'Activo')->orderBy('statuscomport', 'asc')
+                                 ->get();
+        return view('/registrarincid', compact('categ', 'areas', 'servicio', 'listserv'));
     }
     public function getserv(Request $request){
         if($request->ajax()) {
@@ -55,6 +59,17 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
+        /*$request->validate([
+            'fechaincid' => 'required',
+            'fechareporte' => 'required',
+            'serv_id' => 'required',
+            'reportador' => 'required',
+            'accioncorr' => 'required',
+            'metnotif' => 'required',
+            'status' => 'required',
+            'case' => 'required'
+          ]);*/  
+
         //return $request->all();
         $max = App\Incidente::all()->max('id');
         if ( $max == 0){
@@ -75,8 +90,16 @@ class IncidenciaController extends Controller
         $incicidencianueva->fecha_incidente = $request->fechaincid;
         $incicidencianueva->fecha_sol = $request->fechasolucion;
         $incicidencianueva->status = $request->status;
-
         $incicidencianueva->save();
+        foreach ($request->case as $item=>$v){
+            $areaafectada = new Areaafectada();
+            $areaafectada->id_incident = $codigo;
+            $areaafectada->id_area = $request->case[$item];
+            $areaafectada->save();
+        }
+        $updateserv = App\Servicio::find($request->serv_id);
+        $updateserv->statuscomport = $request->status;
+        $updateserv->save();
         return back()->with('mensaje', '¡Se ha registrado correctamente!');
     }
 

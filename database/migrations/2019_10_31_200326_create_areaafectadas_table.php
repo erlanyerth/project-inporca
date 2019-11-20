@@ -16,9 +16,9 @@ class CreateAreaafectadasTable extends Migration
         Schema::create('areaafectadas', function (Blueprint $table) {
             $table->bigincrements('id');
             $table->unsignedBigInteger('id_incident');
-            $table->foreign('id_incident')->references('id')->on('users');
+            $table->foreign('id_incident')->references('id')->on('incidentes');
             $table->unsignedBigInteger('id_area');
-            $table->foreign('id_area')->references('id')->on('users');
+            $table->foreign('id_area')->references('id')->on('areas');
             $table->timestamps();
         });
     }

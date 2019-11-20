@@ -18,7 +18,7 @@
                                       </div>
 
                                   @endif
-                            <form method="POST" action="/seguimientoIncidencia" class="needs-validation" novalidate>
+                            <form method="POST" id="myForm" action="/seguimientoIncidencia" class="needs-validation" novalidate>
                          
                             @csrf 
 
@@ -90,7 +90,7 @@
                               <div class="text-center">
                                 <p>
                                   <button type="submit" class="btn btn-success">Guardar</button>
-                                  <button type="button" class="btn btn-danger">Cancelar</button>
+                                  <button type="button" onclick="myFunction()" value="Reset form" class="btn btn-danger">Cancelar</button>
                                 </p>
                               </div>
                               
@@ -101,36 +101,37 @@
             </div>
             <div class="col-md-4 ">
                 <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
-                <table class="table table-hover">
-                    <thead class="">
-                      <tr class="bg-light">
-                        <th scope="col">Servicio</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Última actualización</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        
-                      </tr>
-                    
-                    </tbody>
-                  </table>
+                <table class="table table-hover table-bordered">
+                                <thead class="">
+                                  <tr class="bg-light">
+                                  <th scope="col">Código</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Última actualización</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  @foreach($listserv as $item2)
+                                  <tr>
+                                    <th scope="row">{{$item2->id}}</th>
+                                    <td>{{$item2->nombre}}</td>
+                                    <td>{{$item2->statuscomport}}</td>
+                                    <td>{{$item2->updated_at}}</td>
+                                  </tr>
+                                @endforeach()
+                                </tbody>
+                              </table>
             </div>
         </div>
         
           
   </section>
   </div>
+  <script>
+function myFunction() {
+  document.getElementById("myForm").reset();
+}
+</script>
 @endsection
   

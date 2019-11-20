@@ -16,29 +16,21 @@
                                       </div>
 
                                   @endif
-                                  <form  method="POST" action="/categoria">
+                                  <form action="/categoria" id="myForm" method="POST">
                                     @csrf 
-
-                                   <!-- @foreach ($errors->get('nombre') as $error)
-
-                                      <div class="alert alert-danger">
-                                        ¡El nombre es obligatorio!
-                                      </div>
-                                    @endforeach-->
                                   <hr class="mb-4">
                                       <div class="mb-3">
-                                        <!-- <fieldset disabled>-->
-                                        <label for="firstName" name="idcateg" value="{{ $codigo }}">Código de la categoría:</label>
                                         
-                                        <input type="text" class="form-control" name="idcateg"   value="{{ $codigo }}" placeholder="" readonly>
+                                        <label name="id" value="{{ $codigo }}" for="firstName" >Código de la categoría:</label>
                                         
-                                        <!--<fieldset disabled></fieldset>-->
+                                        <input type="text" name="idcateg" class="form-control" value="{{ $codigo }}" id="firstName" placeholder="" readonly>
+                                        
                                       </div>
                                       
                                      
                                     
                                         <div class="mb-3">
-                                              <label for="firstName">Nombre:</label>
+                                              <label >Nombre:</label>
                                             <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre"  placeholder="Escriba el nombre de la categoría" value="">
                                             @if ($errors->has('nombre'))
                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +44,7 @@
                                     <div class="text-center">
                                       <p>
                                         <button  type="submit" class="btn btn-success">Guardar</button>
-                                        <button type="button" class="btn btn-danger">Cancelar</button>
+                                        <button type="button" onclick="myFunction()" value="Reset form" class="btn btn-danger">Cancelar</button>
                                       </p>
                                     </div>
                                     
@@ -64,6 +56,12 @@
                       </div>
                     
             </section> 
+
      
 </div>
+<script>
+function myFunction() {
+  document.getElementById("myForm").reset();
+}
+</script>
 @endsection

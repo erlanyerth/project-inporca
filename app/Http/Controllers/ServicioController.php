@@ -52,6 +52,7 @@ class ServicioController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
         $request->validate([
             'nombre' => 'required|string|max:30|unique:servicios',
             'categoria' => 'required',
@@ -67,7 +68,7 @@ class ServicioController extends Controller
                  $servicionuevo->frecuencia = $request->frecuencia;
                  $servicionuevo->dispon_desde = $request->horadesde;
                  $servicionuevo->dispon_hasta = $request->horahasta;
-                 $categoriaid = App\Categoria::where('nombre', $request->idcateg)->first();
+                 $categoriaid = App\Categoria::where('nombre', $request->categoria)->first();
                  $servicionuevo->idcateg = $categoriaid->id;
                  $servicionuevo->save();
                  
