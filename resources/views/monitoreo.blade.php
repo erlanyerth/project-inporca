@@ -5,6 +5,8 @@
 <section class="mt-3 pt-3 container-fluid">
         <div class="row">
                 <div class="col-md-8 ">
+                <div class="card mx-auto p-3 shadow rounded">
+  <div class="card-body">
                 <form  method="POST" id="myForm" action="/monitoreo">
                                     @csrf 
                                     @foreach ($errors->get('fechayhora') as $error)
@@ -28,18 +30,14 @@
     <span aria-hidden="true">&times;</span>
   </button>
                                       </div>
-
                                   @endif
                         <div class="row">
                                 <div class="col-md-4 mb-4">
                                         <h6 class="font-weight-bold">Fecha y hora del seguimiento</h6>
                                         <input type="datetime-local" value="{{ old('fechayhora') }}" name="fechayhora">
-                                    </div>
-                                       
-                                        
-                                
+                                    </div>       
                         </div>
-                         
+      
                     <table class="table" id="tabla">
                         <thead class="thead-light">
                           <tr>
@@ -74,6 +72,8 @@
                       </div>
                     </div>
                     </form>
+                    </div>
+</div>
                     <div class="col-md-4">
                             <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
                             <table class="table table-hover table-bordered">

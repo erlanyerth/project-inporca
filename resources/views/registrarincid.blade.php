@@ -16,11 +16,12 @@
 <div class="container"> 
 <section class="mt-2 pt-3 container-fluid">
         <div class="container-fluid">
-         <!-- @inject('categorias', 'App\services\categ')-->
+         @inject('categorias', 'App\services\categ')
             <div class="row">
                     
-                    <div class="col-md-8 ">
-                    <div class="card border-dark mx-auto">
+                    <div class="col-md-7" >
+                   
+                    <div class="card border-dark">
                           <div class="card-body text-dark ">
                       <h4 class="mb-3 text-danger">REGISTRO DE INCIDENCIA</h4>
                       <hr class="mb-2">
@@ -60,30 +61,25 @@
                          </div>
                          </div>
                          <div class="row">
-                                    <!--<div class="col-md-4 mb-3">
+                                    <div class="col-md-4 mb-3">
                                     
                               <select class="form-control form-control-sm d-block w-100" id="categ" name="categ_id" required>
-                                
-                                @foreach($categorias->get() as $index => $categoria)
+                              <option value="color">Color</option>
+                              <option value="country">Country</option>
+                               @foreach($categorias->get() as $index => $categoria)
                                 <option value="{{ $index }}" {{ old('categ_id') == $index ? 'selected' : '' }}>{{ $categoria }}</option>
                                 @endforeach()
                               </select>
-                          </div>-->
-                          <div class="col-md-4 mb-3">
-                          
-                              <select class="form-control form-control-sm d-block w-100 {{ $errors->has('serv_id') ? ' is-invalid' : '' }}" id="serv" data-old="{{ old('serv_id') }}" name="serv_id" required>
-                              <option value="">Seleccione</option>
-                              @foreach($servicio as $item3) 
-                                        <option value="{{$item3->id}}">{{$item3->nombre}}</option>  
-                                      @endforeach()
-                              </select>
-                              @if ($errors->has('serv_id'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('serv_id') }}</strong>
-                                    </span>
-                                @endif
                           </div>
-                          
+                          <div class="col-md-4 mb-3">
+                          <select id="serv" data-old="{{ old('serv_id') }}" name="serv_id" class="form-control{{ $errors->has('serv_id') ? ' is-invalid' : '' }}"></select>
+
+                                    @if ($errors->has('serv_id'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('serv_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                           <div class="col-md-4 mb-3">
                           <input type="text" class="form-control form-control-sm{{ $errors->has('reportador') ? ' is-invalid' : '' }}" name="reportador" placeholder="¿quién reportó el evento?" value="" required>
                           @if ($errors->has('reportador'))
@@ -158,11 +154,7 @@
                                   @endforeach()
                                    </div>
                         </div>
-                        <div class="row">
-                                 
-                                   
-                         </div>
-               
+                    
                         <hr class="mb-2">
                         
                         <div class="text-right">
@@ -176,11 +168,15 @@
                         </div>
                         
                       </form>
-                      
+                      <div>
+</div>     
                 </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
-                    <table class="table table-hover table-bordered">
+
+                <div class="col-md-5">
+                <div class="card">
+                <div class="card-body">
+                <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
+                    <table class="table table-sm table-bordered">
                                 <thead class="">
                                   <tr class="bg-light">
                                   <th scope="col">Código</th>
@@ -201,8 +197,9 @@
                                 @endforeach()
                                 </tbody>
                               </table>
+                      </div>
                       
-               
+</div>
                       
                        
                 </div>
@@ -246,7 +243,47 @@ $(".case").on("click", function() {
 });
       </script>
       
-      
+     <!-- <script>
+var options = {
+		color : ["red","green","blue"],
+		country : ["Spain","Germany","France"]
+}
+
+$(function(){
+	var fillSecondary = function(){
+		var selected = $('#categ').val();
+		$('#serv').empty();
+		options[selected].forEach(function(element,index){
+			$('#serv').append('<option value="'+element+'">'+element+'</option>');
+		});
+	}
+	$('#categ').change(fillSecondary);
+	fillSecondary();
+});
+</script>-->
+<script>
+$(document).ready(function(){
+    function loadCareer() {
+        var faculty_id = $('#categ').val();
+        if ($.trim(faculty_id) != '') {
+            $.get('careers/', {faculty_id: faculty_id}, function (careers) {
+
+                var old = $('#serv').data('old') != '' ? $('#serv').data('old') : '';
+
+                $('#serv').empty();
+                $('#serv').append("<option value=''>Selecciona una carrera</option>");
+
+                $.each(careers, function (index, value) {
+                    $('#serv').append("<option value='" + index + "'" + (old == index ? 'selected' : '') + ">" + value +"</option>");
+                })
+            });
+        }
+    }
+    loadCareer();
+    $('#categ').on('change', loadCareer);
+});
+</script>
+
     @endsection
 
 <!--@section('script')

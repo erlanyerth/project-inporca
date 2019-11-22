@@ -28,14 +28,15 @@ class IncidenciaController extends Controller
                                  ->get();
         return view('/registrarincid', compact('categ', 'areas', 'servicio', 'listserv'));
     }
-    public function getserv(Request $request){
-        if($request->ajax()) {
-            $serv = Servicio::where('idcateg', $request->categ_id)
-            ->get();
-            foreach ($serv as $servicio){
-                $servicioArray[$servicio->id] = $servicio->nombre;
+    public function getCareers(Request $request)
+    {
+        return $request->all();
+        if ($request->ajax()) {
+            $careers = Servicio::where('idcateg', $request->faculty_id)->get();
+            foreach ($careers as $career) {
+                $careersArray[$career->id] = $career->name;
             }
-            return response()->json( $servicioArray);
+            return response()->json($careersArray);
         }
     }
     public function byCategory($id){
@@ -61,12 +62,13 @@ class IncidenciaController extends Controller
     {
         /*$request->validate([
             'fechaincid' => 'required',
-            'fechareporte' => 'required',
+            'fechareporte' => 'required|after:fechaincid',
             'serv_id' => 'required',
             'reportador' => 'required',
             'accioncorr' => 'required',
             'metnotif' => 'required',
             'status' => 'required',
+            'fechasolucion' => 'after:fechareporte',
             'case' => 'required'
           ]);*/  
 
@@ -111,7 +113,7 @@ class IncidenciaController extends Controller
      */
     public function show($id)
     {
-        //
+        return Servicio::where('idcateg', $id)->get();
     }
 
     /**

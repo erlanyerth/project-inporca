@@ -23,13 +23,13 @@
                                      @foreach ($errors->get('horadesde') as $error)
 
                                     <div class="alert alert-danger">
-                                    ¡Ingrese un rango de hora!
+                                    ¡Ingrese un rango de hora válido!
                                     </div>
                                      @endforeach    
                                      @foreach ($errors->get('horahasta') as $error)
 
                                     <div class="alert alert-danger">
-                                    ¡Ingrese un rango de hora!
+                                    ¡Ingrese un rango de hora válido!
                                     </div>
                                      @endforeach                              
                                      <div class="mb-3">
@@ -84,13 +84,13 @@
                                             <label >Disponibilidad:</label>
                                             </div>
                                           <label >Desde: </label>
-                                          <input class="border-dark" value="{{ old('horadesde') }}" type="time" name="horadesde">
+                                          <input class="border-dark" value="{{ old('horadesde') }}" type="time" id="time11" name="horadesde">
                                           <label >Hasta: </label>
-                                          <input class="border-dark" value="{{ old('horahasta') }}" type="time" name="horahasta">
+                                          <input class="border-dark" value="{{ old('horahasta') }}" type="time" id="time12" name="horahasta">
                                       <hr class="mb-4">
                                       <div class="text-center">
                                         <p>
-                                          <button type="submit" class="btn btn-success">Guardar</button>
+                                          <button type="submit" onclick="myFunction1()" class="btn btn-success">Guardar</button>
                                           <button type="button" onclick="myFunction()" value="Reset form" class="btn btn-danger">Cancelar</button>
                                         </p>
                                       </div>
@@ -107,4 +107,5 @@
                document.getElementById("myForm").reset();
                 }
               </script>
+              
 @endsection

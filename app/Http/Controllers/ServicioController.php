@@ -54,11 +54,11 @@ class ServicioController extends Controller
     {
         //return $request->all();
         $request->validate([
-            'nombre' => 'required|string|max:30|unique:servicios',
+            'nombre' => 'required|string|max:16|unique:servicios',
             'categoria' => 'required',
             'frecuencia' => 'required',
             'horadesde' => 'required',
-            'horahasta' => 'required'
+            'horahasta' => 'required|after_or_equal:horadesde'
           ]);   
         $servicionuevo = new Servicio();
                  $servicionuevo->nombre = $request->nombre;

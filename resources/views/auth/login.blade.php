@@ -7,10 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" >
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>Hello, world!</title>
+    <title>Inversiones Porcinas C.A</title>
   </head>
   <body>
 <div class="container">
@@ -89,7 +89,8 @@
                     @csrf
                     
                         <div class="text-center mb-4" >
-                         <!-- <img class="mb-4" src="img/libro.jpg" alt="" width="72" height="72">-->
+                          <!--<img class="mb-4" src="{{ asset('image/INPORCA.JPG') }}" alt="" width="400" height="100">-->
+                          <i class="fa fa-users"></i>
                           <h2 class="mb-3 text-center text-danger">INICIAR SESIÓN</h2>
                         </div>
                         

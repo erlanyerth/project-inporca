@@ -4,26 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
-use App\Servicio;
-use App\Monitoreo;
-use Carbon\Carbon;
-class MonitoreoController extends Controller
+class GenerarrepControlador extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
-    }
-     public function index()
-    {
-        $servicios = App\Servicio::where('statuscomport', 'Ok')->get();
-        $listserv = App\Servicio::where('statusact', 'Activo')->orderBy('statuscomport', 'asc')
-                                 ->get();
-        return view('/monitoreo', compact('servicios', 'listserv'));
+        return view('/generarreporte');
     }
 
     /**
@@ -44,30 +34,12 @@ class MonitoreoController extends Controller
      */
     public function store(Request $request)
     {
-        $date = Carbon::now();
-        $request->validate([
-            'fechayhora' => 'required',
-            'case' => 'required'
-          ]);    
-       // return $request->all();
-        
-        $fecha = $request->fechayhora;
-       
-
-        foreach ($request->case as $item=>$v){
-            
-            $monitoreo = new Monitoreo();
-            $monitoreo->id_responsable = auth()->user()->id;
-            $monitoreo->fecha_monit = $fecha;
-            $monitoreo->id_serv = $request->case[$item];
-
-            $updateserv = App\Servicio::find($request->case[$item]);
-            $updateserv->updated_at = $date;
-            $updateserv->save();
-            $monitoreo->save();
-        }
-   
-        return back()->with('mensaje', '¡Se ha registrado correctamente!');
+        //return $request->all();
+        $desde = $request->desde;
+        $hasta = $request->hasta;
+        $incidencia = App\Incidente::whereBetween('fecha_incidente', [$desde, $hasta])->get();
+        $seguimiento = App\Seguimincident::whereBetween('fecha_seg', [$desde, $hasta])->get();
+        return view('/listadodisp', compact('incidencia'));
     }
 
     /**

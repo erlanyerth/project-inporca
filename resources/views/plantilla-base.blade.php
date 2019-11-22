@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="cc/animation.css">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- Styles -->
@@ -16,7 +17,9 @@
   </head>
   <body>
   <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
-        <!--<a class="navbar-brand" href="#">Navbar</a>-->
+       <!-- <a class="navbar-brand" href="#">
+        <img src="{{ asset('favicon.ico') }}" width="30" height="30" class="d-inline-block">
+        </a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,12 +37,15 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Servicios
+                Servicio
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/servicio">Registrar servicio</a>
                 <a class="dropdown-item" href="/categoria">Registrar Categoría</a>
                 <a class="dropdown-item" href="/area">Registrar Área</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Reporte">Reporte</a>
             </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -20,12 +20,10 @@ Route::resource('/area', 'AreaController');
 Route::resource('/monitoreo', 'MonitoreoController');
 Route::resource('/incidencia', 'IncidenciaController');
 Route::resource('/seguimientoIncidencia', 'SeguimientoController');
-Route::get('/serviciolist', 'IncidenciaController@getserv');
+Route::resource('/Reporte', 'GenerarrepControlador');
+Route::resource('/careers', 'IncidenciaController@getCareers');
 
-Route::get('/select', 'Pagecontroller@getserv');
 
-
-Route::get('productByCategory/{id}', 'IncidenciaController@byCategory');
 Route::get('/', 'Pagecontroller@inicio');
 
 //Route::get('servicio', 'Pagecontroller@regservi')->name('servicio');
