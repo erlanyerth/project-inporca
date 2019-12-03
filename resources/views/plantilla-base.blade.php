@@ -52,7 +52,7 @@
                 Usuario
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/register">Nuevo Usuario</a>
+                <a class="dropdown-item" href="{{ route('register') }}">Nuevo Usuario</a>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto">
