@@ -16,7 +16,7 @@
                                       </div>
 
                                   @endif
-                                  <form action="/categoria" id="myForm" method="POST">
+                                  <form action="{{ route('categoria.store') }}" id="myForm" method="POST">
                                     @csrf 
                                   <hr class="mb-4">
                                       <div class="mb-3">

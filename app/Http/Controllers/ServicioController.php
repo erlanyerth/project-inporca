@@ -30,7 +30,7 @@ class ServicioController extends Controller
         }
        // $categorias = App\Categoria::all();
        $categorias = App\Categoria::where('status', 'Activo')->get();
-        return view('regservicio', compact('categorias', 'codigo'));
+        return view("regservicio", compact('categorias', 'codigo'));
         //return view('regservicio', compact('servicios'));
     }
 
@@ -54,7 +54,7 @@ class ServicioController extends Controller
     {
         //return $request->all();
         $request->validate([
-            'nombre' => 'required|string|max:16|unique:servicios',
+            'nombre' => 'required|string|max:14|unique:servicios',
             'categoria' => 'required',
             'frecuencia' => 'required',
             'horadesde' => 'required',
@@ -64,7 +64,7 @@ class ServicioController extends Controller
                  $servicionuevo->nombre = $request->nombre;
                  $servicionuevo->id = $request->id;
                  $servicionuevo->statusact = "Activo";
-                 $servicionuevo->statuscomport = "Ok";
+                 $servicionuevo->statuscomport = "OK";
                  $servicionuevo->frecuencia = $request->frecuencia;
                  $servicionuevo->dispon_desde = $request->horadesde;
                  $servicionuevo->dispon_hasta = $request->horahasta;

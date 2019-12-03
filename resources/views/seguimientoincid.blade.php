@@ -1,10 +1,16 @@
 @extends('plantilla-base')
-
+<style>
+.anyClass {
+  height:600px;
+  width:500px;
+  overflow-y: scroll;
+}
+</style>
 @section('content')
 <div class="container">
 <section class="mt-4 pt-3 container-fluid">
         <div class="row">
-            <div class="col-md-8 ">
+            <div class="col-md-7 ">
                 <div class="card border-dark mb-3 block w-75 mx-auto">
                     <div class="card-body text-dark ">
                             <h4 class="mb-3 text-center text-danger">SEGUIMIENTO DE INCIDENCIA</h4>
@@ -18,14 +24,14 @@
                                       </div>
 
                                   @endif
-                            <form method="POST" id="myForm" action="/seguimientoIncidencia" class="needs-validation" novalidate>
+                            <form method="POST" id="myForm" action="{{ route('seguimientoIncidencia.store') }}" class="needs-validation" novalidate>
                          
                             @csrf 
 
                                     @foreach ($errors->get('fechayhora') as $error)
 
                                       <div class="alert alert-danger">
-                                        ¡La fecha es obligatoria!
+                                        ¡La fecha no es válida!
                                       </div>
                                     @endforeach
                                     @foreach ($errors->get('servicio') as $error)
@@ -49,6 +55,8 @@
                             <div class="mb-4">
                             <h6 class="font-weight-bold">Fecha y hora del seguimiento</h6>
                             <input type="datetime-local" name="fechayhora">
+                            <input type="date" id="date" class="invisible" name="date" value="{{ old('fechayhora') }}">
+                            
                            </div>
                                 <div class="mb-3">
                                     <label class="font-weight-bold" for="state">Servicio con problema registrado</label>
@@ -60,13 +68,13 @@
                                     </select>
                                   </div>
                                   <div class="mb-3">
-                              <input type="text" class="form-control" id="firstName" name="accion" placeholder="Acción correctiva" value="" required>
+                              <input type="text" class="form-control" id="firstName" name="accion" placeholder="Acción correctiva" value="{{ old('accion') }}" required>
                               <div class="invalid-feedback">
                                 Valid first name is required.
                               </div>
                             </div>
                                 <div class="mb-3">
-                                  <input type="text" class="form-control" id="firstName" name="observacion" placeholder="Observación" value="" required>
+                                  <input type="text" class="form-control" id="firstName" name="observacion" placeholder="Observación" value="{{ old('observacion') }}" required>
                                   <div class="invalid-feedback">
                                     Valid first name is required.
                                   </div>
@@ -99,9 +107,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 ">
+            <div class="col-md-5">
+                <div class="card anyClass">
+                <div class="card-body">
                 <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
-                <table class="table table-hover table-bordered">
+                    <table class="table table-sm table-bordered">
                                 <thead class="">
                                   <tr class="bg-light">
                                   <th scope="col">Código</th>
@@ -122,7 +132,12 @@
                                 @endforeach()
                                 </tbody>
                               </table>
-            </div>
+                      </div>
+                      
+</div>
+                      
+                       
+                </div>
         </div>
         
           
@@ -131,6 +146,19 @@
   <script>
 function myFunction() {
   document.getElementById("myForm").reset();
+}
+</script>
+<script>
+window.onload = function(){
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('date').value=ano+"-"+mes+"-"+dia;
 }
 </script>
 @endsection

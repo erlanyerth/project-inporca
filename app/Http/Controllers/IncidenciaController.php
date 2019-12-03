@@ -22,7 +22,8 @@ class IncidenciaController extends Controller
     {
         
         $categ = App\Categoria::all();
-        $servicio = App\Servicio::where('statusact', 'Activo')->get();
+        $servicio = App\Servicio::where('statusact', 'Activo')
+                                ->orWhere('statuscomport', 'Ok')->get();
         $areas = App\Area::all();
         $listserv = App\Servicio::where('statusact', 'Activo')->orderBy('statuscomport', 'asc')
                                  ->get();
@@ -60,7 +61,7 @@ class IncidenciaController extends Controller
      */
     public function store(Request $request)
     {
-        /*$request->validate([
+        $request->validate([
             'fechaincid' => 'required',
             'fechareporte' => 'required|after:fechaincid',
             'serv_id' => 'required',
@@ -68,9 +69,9 @@ class IncidenciaController extends Controller
             'accioncorr' => 'required',
             'metnotif' => 'required',
             'status' => 'required',
-            'fechasolucion' => 'after:fechareporte',
+            'fechasolucion' => 'nullable|after:fechareporte',
             'case' => 'required'
-          ]);*/  
+          ]);  
 
         //return $request->all();
         $max = App\Incidente::all()->max('id');

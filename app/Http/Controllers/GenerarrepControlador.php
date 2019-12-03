@@ -37,9 +37,9 @@ class GenerarrepControlador extends Controller
         //return $request->all();
         $desde = $request->desde;
         $hasta = $request->hasta;
-        $incidencia = App\Incidente::whereBetween('fecha_incidente', [$desde, $hasta])->get();
-        $seguimiento = App\Seguimincident::whereBetween('fecha_seg', [$desde, $hasta])->get();
-        return view('/listadodisp', compact('incidencia'));
+        //$incidencia = App\Incidente::whereBetween('fecha_incidente', [$desde, $hasta])->get();
+        //$seguimiento = App\Seguimincident::whereBetween('fecha_seg', [$desde, $hasta])->get();
+        //return view('/listadodisp', compact('incidencia'));
     }
 
     /**

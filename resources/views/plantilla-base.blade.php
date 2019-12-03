@@ -27,25 +27,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/incidencia">Incidencia <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{ route('incidencia.index') }}">Incidencia <span class="sr-only">(current)</span></a>
+            </li>io
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('seguimientoIncidencia.index') }}">Seguimiento</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/seguimientoIncidencia">Seguimiento</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/monitoreo">Monitoreo</a>
+              <a class="nav-link" href="{{ route('monitoreo.index') }}">Monitoreo</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Servicio
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/servicio">Registrar servicio</a>
-                <a class="dropdown-item" href="/categoria">Registrar Categoría</a>
-                <a class="dropdown-item" href="/area">Registrar Área</a>
+                <a class="dropdown-item" href="{{ route('servicio.index') }}">Registrar servicio</a>
+                <a class="dropdown-item" href="{{ route('categoria.index') }}">Registrar Categoría</a>
+                <a class="dropdown-item" href="{{ route('area.index') }}">Registrar Área</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/Reporte">Reporte</a>
+              <a class="nav-link" href="{{ route('Reporte.index') }}">Reporte</a>
             </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

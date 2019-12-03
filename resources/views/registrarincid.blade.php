@@ -1,17 +1,30 @@
 @extends('plantilla-base')
-<!--<script type="text/javascript">
-	function marcar(source) 
-	{
-		checkboxes=document.getElementsByTagName('input'); //obtenemos todos los controles del tipo Input
-		for(i=0;i<checkboxes.length;i++) //recoremos todos los controles
-		{
-			if(checkboxes[i].type == "checkbox") //solo si es un checkbox entramos
-			{
-				checkboxes[i].checked=source.checked; //si es un checkbox le damos el valor del checkbox que lo llamó (Marcar/Desmarcar Todos)
-			}
-		}
-	}
-</script>-->
+<style>
+.anyClass {
+  height:600px;
+  width:500px;
+  overflow-y: scroll;
+}
+.areaClass {
+  height:100px;
+  width:90px;
+  overflow-y: scroll;
+}
+}
+</style>
+<script>
+function pagoOnChange(sel) {
+      if (sel.value=="OK"){
+        
+           divT = document.getElementById("fechasol");
+           divT.style.display = "";
+      }
+      else{
+           divT = document.getElementById("fechasol");
+           divT.style.display = "none";
+      }
+}
+</script>
 @section('content')
 <div class="container"> 
 <section class="mt-2 pt-3 container-fluid">
@@ -34,18 +47,18 @@
                                       </div>
 
                                   @endif
-                      <form  method="POST" id="myForm" action="/incidencia" class="needs-validation" novalidate>
+                      <form  method="POST" id="myForm" name="myForm" action="{{ route('incidencia.store') }}" class="needs-validation" novalidate>
                       @csrf
                       @foreach ($errors->get('fechaincid') as $error)
 
                                       <div class="alert alert-danger">
-                                        ¡La fecha del incidente es obligatorio!
+                                        ¡Fecha de incidencia no válida!
                                       </div>
                                     @endforeach
                                     @foreach ($errors->get('fechareporte') as $error)
 
                                       <div class="alert alert-danger">
-                                        ¡La fecha del reporte es obligatorio!
+                                        ¡La fecha del reporte no es válida!
                                       </div>
                                     @endforeach
                         <div class="row">
@@ -61,7 +74,7 @@
                          </div>
                          </div>
                          <div class="row">
-                                    <div class="col-md-4 mb-3">
+                                 <!--   <div class="col-md-4 mb-3">
                                     
                               <select class="form-control form-control-sm d-block w-100" id="categ" name="categ_id" required>
                               <option value="color">Color</option>
@@ -70,18 +83,24 @@
                                 <option value="{{ $index }}" {{ old('categ_id') == $index ? 'selected' : '' }}>{{ $categoria }}</option>
                                 @endforeach()
                               </select>
+                          </div>-->
+                          <div class="col-md-6 mb-3">
+                            <select class="form-control form-control-sm d-block w-100{{ $errors->has('serv_id') ? ' is-invalid' : '' }}" name="serv_id" required>
+                            <option value="">Seleccione un servicio...</option>
+                                      @foreach($servicio as $item2) 
+                                        <option value="{{$item2->id}}">{{$item2->nombre}}</option>  
+                                      @endforeach()
+                                      </select>
+                            </select>
+                            @if ($errors->has('serv_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('serv_id') }}</strong>
+                                    </span>
+                                @endif
                           </div>
-                          <div class="col-md-4 mb-3">
-                          <select id="serv" data-old="{{ old('serv_id') }}" name="serv_id" class="form-control{{ $errors->has('serv_id') ? ' is-invalid' : '' }}"></select>
-
-                                    @if ($errors->has('serv_id'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('serv_id') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                          <div class="col-md-4 mb-3">
-                          <input type="text" class="form-control form-control-sm{{ $errors->has('reportador') ? ' is-invalid' : '' }}" name="reportador" placeholder="¿quién reportó el evento?" value="" required>
+                          
+                          <div class="col-md-6 mb-3">
+                          <input type="text" class="form-control form-control-sm{{ $errors->has('reportador') ? ' is-invalid' : '' }}" name="reportador" placeholder="¿quién reportó el evento?" value="{{ old('reportador') }}" required>
                           @if ($errors->has('reportador'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('reportador') }}</strong>
@@ -92,7 +111,7 @@
                      
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                            <input type="text" class="form-control form-control-sm{{ $errors->has('accioncorr') ? ' is-invalid' : '' }}" name="accioncorr" placeholder="Acción correctiva" required>
+                            <input type="text" class="form-control form-control-sm{{ $errors->has('accioncorr') ? ' is-invalid' : '' }}" name="accioncorr" value="{{ old('accioncorr') }}" placeholder="Acción correctiva" required>
                             @if ($errors->has('accioncorr'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('accioncorr') }}</strong>
@@ -100,7 +119,7 @@
                                 @endif
                             </div>
                             <div class="col mb-6">
-                              <input type="text" class="form-control form-control-sm" name="observacion" placeholder="Observación">
+                              <input type="text" class="form-control form-control-sm" name="observacion" value="{{ old('observacion') }}" placeholder="Observación">
                           </div>
                              
                         </div>
@@ -124,7 +143,7 @@
                           </div>
                           <div class="col-md-6 mb-3">
                               <h6 class="font-weight-bold">Estado</h6>
-                            <select class="form-control form-control-sm d-block w-100{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status" required>
+                            <select onChange="pagoOnChange(this)" class="form-control form-control-sm d-block w-100{{ $errors->has('status') ? ' is-invalid' : '' }}" id="status" name="status" required>
                               <option value="">Seleccione...</option>
                               <option>OK</option>
                               <option>Warning</option>
@@ -139,12 +158,13 @@
                           
                         </div>
                         <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3" id="desdeotro">
+                        <div id="fechasol" style="display:none;" >
                               <h6 class="font-weight-bold">Fecha y hora de la solución</h6>
-                              <input type="datetime-local" name="fechasolucion">
-                          
+                              <input type="datetime-local" id="fechasolucion" name="fechasolucion">
                           </div>
-                          <div class="col-md-6 mb-3"> 
+                          </div>
+                          <div class="col-md-6 mb-3 areaClass"> 
                                  <h6 class="font-weight-bold">Áreas afectadas:</h6>
                                  <input type="checkbox" id="selectall"> Todas
                                  <br>
@@ -173,7 +193,7 @@
                 </div>
 
                 <div class="col-md-5">
-                <div class="card">
+                <div class="card anyClass">
                 <div class="card-body">
                 <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
                     <table class="table table-sm table-bordered">

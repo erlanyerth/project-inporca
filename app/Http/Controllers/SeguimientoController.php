@@ -7,6 +7,7 @@ use App;
 use App\Seguimincident;
 use App\Incidente;
 use App\Servicio;
+use Carbon\Carbon;
 class SeguimientoController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class SeguimientoController extends Controller
     }
     public function index()
     {
-      
+        
         //$servicio = App\Servicio::all();
         $servicio = App\Servicio::where('statuscomport', 'Failed')
         ->orWhere('statuscomport', 'Warning')->get();
@@ -48,6 +49,8 @@ class SeguimientoController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
+       
         $request->validate([
             'fechayhora' => 'required',
             'servicio' => 'required',

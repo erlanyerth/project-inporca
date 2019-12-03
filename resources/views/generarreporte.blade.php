@@ -7,7 +7,7 @@
   <div class="card-body">
           <h4 class="mb-3 text-center text-danger">GENERAR REPORTE DE DISPONIBILIDAD EFECTIVA</h4>
           <hr class="mb-3">
-          <form action="/Reporte" id="myForm" method="POST">
+          <form action="{{ route('Reporte.store') }}" id="myForm" method="POST">
           @csrf 
           <h6 class="font-weight-bold">Rango de fechas:</h6>
           

@@ -36,7 +36,7 @@ Route::get('/', 'Pagecontroller@inicio');
 //Route::post('crearserv', 'Pagecontroller@crearservicio')->name('servicio.crearservicio');
 //Route::post('creararea', 'Pagecontroller@creararea')->name('servicio.creararea');
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'IncidenciaController@index')->name('home');
 
 
 

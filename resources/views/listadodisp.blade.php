@@ -5,22 +5,6 @@
 <div class="card mx-auto block w-75 p-3 shadow rounded">
   <div class="card-body">
           <h4 class="mb-3 text-center text-danger">REPORTE DE DISPONIBILIDAD EFECTIVA</h4>
-          
-          <h6 class="font-weight-bold">Rango de fechas:</h6>
-          
-          <div class="row">
-              <div class="col-auto">
-                      <h6 class="font-weight-bold">Desde:</h6>
-                      <input id="date" type="date">
-                  </div>
-                  <div class="col-auto">
-                      <h6 class="font-weight-bold">Hasta</h6>
-                      <input id="date" type="date">
-                  </div>
-                  <div class="col-auto pt-3">
-                      <button type="button" class="btn btn-danger">BUSCAR</button>
-                  </div>
-                  </div>
                   <hr class="mb-5">
     <table class="table table-sm">
       <thead>

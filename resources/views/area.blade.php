@@ -16,7 +16,7 @@
                                       </div>
 
                                   @endif
-                                  <form action="/area" id="myForm" method="POST">
+                                  <form action="{{ route('area.store') }}" id="myForm" method="POST">
                                     @csrf 
                                   <hr class="mb-4">
                                       <div class="mb-3">

@@ -20,7 +20,7 @@ class MonitoreoController extends Controller
     }
      public function index()
     {
-        $servicios = App\Servicio::where('statuscomport', 'Ok')->get();
+        $servicios = App\Servicio::where('statuscomport', 'OK')->paginate(20);
         $listserv = App\Servicio::where('statusact', 'Activo')->orderBy('statuscomport', 'asc')
                                  ->get();
         return view('/monitoreo', compact('servicios', 'listserv'));

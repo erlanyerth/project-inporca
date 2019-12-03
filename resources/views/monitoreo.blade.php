@@ -1,13 +1,19 @@
 @extends('plantilla-base')
-
+<style>
+.anyClass {
+  height:600px;
+  width:500px;
+  overflow-y: scroll;
+}
+</style>
 @section('content')
 <div class="container">
 <section class="mt-3 pt-3 container-fluid">
         <div class="row">
-                <div class="col-md-8 ">
+                <div class="col-md-7 ">
                 <div class="card mx-auto p-3 shadow rounded">
   <div class="card-body">
-                <form  method="POST" id="myForm" action="/monitoreo">
+                <form  method="POST" id="myForm" action="{{ route('monitoreo.store') }}">
                                     @csrf 
                                     @foreach ($errors->get('fechayhora') as $error)
 
@@ -38,7 +44,7 @@
                                     </div>       
                         </div>
       
-                    <table class="table" id="tabla">
+                    <table class="table table-sm" id="tabla">
                         <thead class="thead-light">
                           <tr>
                             <th><input type="checkbox" id="selectall" class="checkthis" /></th>
@@ -63,6 +69,7 @@
                           @endforeach()
                         </tbody>
                       </table>
+                      {{$servicios->links()}}
                       <hr class="mb-4">
                       <div class="text-center">
                         <p>
@@ -74,9 +81,11 @@
                     </form>
                     </div>
 </div>
-                    <div class="col-md-4">
-                            <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
-                            <table class="table table-hover table-bordered">
+<div class="col-md-5">
+                <div class="card anyClass">
+                <div class="card-body">
+                <h5 class="mb-3 text-center text-danger">Listado de servicios</h5>
+                    <table class="table table-sm table-bordered">
                                 <thead class="">
                                   <tr class="bg-light">
                                   <th scope="col">Código</th>
@@ -97,7 +106,13 @@
                                 @endforeach()
                                 </tbody>
                               </table>
-                              </div>
+                      </div>
+                      
+</div>
+                      
+                       
+                </div>
+                              
         </div>
 
       <script>

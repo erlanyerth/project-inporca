@@ -16,7 +16,7 @@
                                       </div>
 
                                   @endif
-                                    <form action="/servicio" id="myForm" method="POST" class="needs-validation" novalidate>
+                                    <form action="{{ route('servicio.store')}}" id="myForm" method="POST" class="needs-validation" novalidate>
                                     @csrf
                                    
                                     
